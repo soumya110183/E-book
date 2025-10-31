@@ -27,8 +27,8 @@ export default function App() {
     setCurrentPage('reader');
   };
 
-  const handleNavigate = (page: Page) => {
-    setCurrentPage(page);
+  const handleNavigate = (page: string) => {
+    setCurrentPage(page as Page);
   };
 
   const handleLogout = () => {
