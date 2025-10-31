@@ -41,7 +41,7 @@ export function PaymentsAdmin() {
                   <h3 className="text-[#1d4d6a] mb-1">{stat.value}</h3>
                   <p className="text-xs text-green-600">{stat.change}</p>
                 </div>
-                <div className="w-12 h-12 bg-[#bf2026] bg-opacity-10 rounded-lg flex items-center justify-center">
+                <div className="w-12 h-12  bg-opacity-10 rounded-lg flex items-center justify-center">
                   <stat.icon className="w-6 h-6 text-[#bf2026]" />
                 </div>
               </div>

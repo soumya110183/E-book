@@ -15,6 +15,14 @@ import {
   Clock,
   ChevronRight
 } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "./ui/dialog";
+
 import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from './ui/card';
 import { Progress } from './ui/progress';
@@ -137,18 +145,40 @@ export function UserDashboard({ onNavigate, onOpenBook, onLogout }: UserDashboar
 }
 
 function DashboardHome({ onOpenBook }: { onOpenBook: (book: any) => void }) {
+  const [selectedTest, setSelectedTest] = useState<any>(null);
+   const [showAllTests, setShowAllTests] = useState(false);
+  const handleTestClick = (test: any) => setSelectedTest(test);
+
+  // 🔹 Handle modal close
+  const handleCloseModal = () => setSelectedTest(null);
+
+  // 🔹 Handle "Start Test" action
+  const handleStartTest = () => {
+    if (selectedTest) {
+      console.log("Starting test:", selectedTest.title);
+      // you can add navigation logic here, e.g.:
+      // onNavigate(`test/${selectedTest.id}`);
+      setSelectedTest(null);
+    }
+  };
   const recentBooks = [
     { id: 1, title: 'Advanced Calculus', author: 'Dr. Smith', progress: 65, cover: '📘' },
     { id: 2, title: 'Quantum Physics', author: 'Prof. Johnson', progress: 42, cover: '📗' },
     { id: 3, title: 'Machine Learning', author: 'Dr. Chen', progress: 88, cover: '📙' },
   ];
 
-  const upcomingTests = [
-    { id: 1, title: 'Mathematics Mock Test 3', date: '2 days', questions: 50 },
-    { id: 2, title: 'Physics Final Prep', date: '5 days', questions: 75 },
-    { id: 3, title: 'Computer Science Quiz', date: '1 week', questions: 30 },
+   const allTests = [
+    { id: 1, title: "Mathematics Mock Test 3", date: "2 days", questions: 50 },
+    { id: 2, title: "Physics Final Prep", date: "5 days", questions: 75 },
+    { id: 3, title: "Computer Science Quiz", date: "1 week", questions: 30 },
+    { id: 4, title: "Chemistry Revision Test", date: "3 days", questions: 40 },
+    { id: 5, title: "Biology Quick Test", date: "4 days", questions: 25 },
+    { id: 6, title: "English Literature Exam", date: "6 days", questions: 60 },
   ];
 
+  const upcomingTests = allTests.slice(0, 3);
+
+  
   return (
     <div className="space-y-6">
       {/* Stats Cards */}
@@ -164,7 +194,7 @@ function DashboardHome({ onOpenBook }: { onOpenBook: (book: any) => void }) {
                   <span>+3 this month</span>
                 </div>
               </div>
-              <div className="w-12 h-12 bg-[#bf2026] bg-opacity-10 rounded-lg flex items-center justify-center">
+              <div className="w-12 h-12  bg-opacity-10 rounded-lg flex items-center justify-center">
                 <BookOpen className="w-6 h-6 text-[#bf2026]" />
               </div>
             </div>
@@ -182,7 +212,7 @@ function DashboardHome({ onOpenBook }: { onOpenBook: (book: any) => void }) {
                   <span>92% avg score</span>
                 </div>
               </div>
-              <div className="w-12 h-12 bg-[#bf2026] bg-opacity-10 rounded-lg flex items-center justify-center">
+              <div className="w-12 h-12  bg-opacity-10 rounded-lg flex items-center justify-center">
                 <ClipboardCheck className="w-6 h-6 text-[#bf2026]" />
               </div>
             </div>
@@ -200,7 +230,7 @@ function DashboardHome({ onOpenBook }: { onOpenBook: (book: any) => void }) {
                   <span>24h this week</span>
                 </div>
               </div>
-              <div className="w-12 h-12 bg-[#bf2026] bg-opacity-10 rounded-lg flex items-center justify-center">
+              <div className="w-12 h-12  bg-opacity-10 rounded-lg flex items-center justify-center">
                 <TrendingUp className="w-6 h-6 text-[#bf2026]" />
               </div>
             </div>
@@ -218,7 +248,7 @@ function DashboardHome({ onOpenBook }: { onOpenBook: (book: any) => void }) {
                   <span>Keep it up!</span>
                 </div>
               </div>
-              <div className="w-12 h-12 bg-[#bf2026] bg-opacity-10 rounded-lg flex items-center justify-center">
+              <div className="w-12 h-12  bg-opacity-10 rounded-lg flex items-center justify-center">
                 <Trophy className="w-6 h-6 text-[#bf2026]" />
               </div>
             </div>
@@ -255,29 +285,104 @@ function DashboardHome({ onOpenBook }: { onOpenBook: (book: any) => void }) {
           </CardContent>
         </Card>
 
-        <Card className="border-none shadow-md">
-          <CardHeader>
-            <CardTitle className="text-[#1d4d6a]">Upcoming Tests</CardTitle>
-            <CardDescription>Don't miss these assessments</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            {upcomingTests.map((test) => (
-              <div key={test.id} className="p-3 bg-gray-50 rounded-lg">
-                <h4 className="text-sm text-[#1d4d6a] mb-2">{test.title}</h4>
-                <div className="flex items-center justify-between text-xs text-gray-500">
-                  <span className="flex items-center gap-1">
-                    <Clock className="w-3 h-3" />
-                    {test.date}
-                  </span>
-                  <span>{test.questions} questions</span>
-                </div>
+       <Card className="border-none shadow-md">
+        <CardHeader>
+          <CardTitle className="text-[#1d4d6a]">Upcoming Tests</CardTitle>
+          <CardDescription>Don't miss these assessments</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {upcomingTests.map((test) => (
+            <div
+              key={test.id}
+              onClick={() => handleTestClick(test)}
+              className="p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition"
+            >
+              <h4 className="text-sm text-[#1d4d6a] mb-2">{test.title}</h4>
+              <div className="flex items-center justify-between text-xs text-gray-500">
+                <span className="flex items-center gap-1">
+                  <Clock className="w-3 h-3" />
+                  {test.date}
+                </span>
+                <span>{test.questions} questions</span>
               </div>
-            ))}
-            <Button className="w-full bg-[#bf2026] hover:bg-[#a01c22] text-white rounded-lg">
+            </div>
+          ))}
+          <Button
+              onClick={() => setShowAllTests(true)}
+              className="w-full bg-[#bf2026] hover:bg-[#a01c22] text-white rounded-lg"
+            >
               View All Tests
             </Button>
-          </CardContent>
-        </Card>
+        </CardContent>
+      </Card>
+
+      {/* ---- Modal ---- */}
+      <Dialog open={!!selectedTest} onOpenChange={handleCloseModal}>
+        <DialogContent className="max-w-md">
+          {selectedTest && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-[#1d4d6a]">{selectedTest.title}</DialogTitle>
+                <DialogDescription>Review test details before starting.</DialogDescription>
+              </DialogHeader>
+              <div className="space-y-3 text-sm text-gray-700 mt-2">
+                <p><span className="font-medium">📅 Date:</span> {selectedTest.date}</p>
+                <p><span className="font-medium">📝 Questions:</span> {selectedTest.questions}</p>
+                <p><span className="font-medium">📚 Description:</span> This test covers important concepts you’ve studied recently.</p>
+              </div>
+              <div className="mt-6 flex justify-end gap-3">
+                <Button onClick={handleCloseModal} className="bg-gray-200 text-gray-700 hover:bg-gray-300">
+                  Cancel
+                </Button>
+                <Button onClick={handleStartTest} className="bg-[#bf2026] hover:bg-[#a01c22] text-white">
+                  Start Test
+                </Button>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* ---- All Tests Modal ---- */}
+      <Dialog open={showAllTests} onOpenChange={setShowAllTests}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="text-[#1d4d6a]">All Tests</DialogTitle>
+            <DialogDescription>Here’s a list of all ongoing and upcoming tests.</DialogDescription>
+          </DialogHeader>
+
+          <div className="max-h-80 overflow-y-auto mt-4 space-y-2">
+            {allTests.map((test) => (
+              <div
+                key={test.id}
+                onClick={() => {
+                  setShowAllTests(false);
+                  setSelectedTest(test);
+                }}
+                className="p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition cursor-pointer"
+              >
+                <div className="flex items-center justify-between">
+                  <h4 className="text-sm text-[#1d4d6a]">{test.title}</h4>
+                  <span className="text-xs text-gray-500">{test.questions} Qs</span>
+                </div>
+                <p className="text-xs text-gray-500 mt-1 flex items-center gap-1">
+                  <Clock className="w-3 h-3" />
+                  {test.date}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-5 text-right">
+            <Button
+              onClick={() => setShowAllTests(false)}
+              className="bg-gray-200 text-gray-700 hover:bg-gray-300"
+            >
+              Close
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
       </div>
 
       {/* Recent Activity */}

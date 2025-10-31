@@ -8,8 +8,7 @@ import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { Textarea } from '../ui/textarea';
 import { BookOpen, Grid3x3, List, Search, Filter, MoreVertical, Edit, Trash2, FolderPlus, StickyNote } from 'lucide-react';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 
 interface MyLibraryProps {
   onOpenBook: (book: any) => void;
@@ -100,7 +99,7 @@ export function MyLibrary({ onOpenBook }: MyLibraryProps) {
       </div>
 
       <Tabs defaultValue="all" className="w-full">
-        <TabsList className="bg-white border border-gray-200">
+        <TabsList className="bg-white border border-gray-200 ">
           <TabsTrigger value="all">All Books</TabsTrigger>
           <TabsTrigger value="reading">Currently Reading</TabsTrigger>
           <TabsTrigger value="completed">Completed</TabsTrigger>

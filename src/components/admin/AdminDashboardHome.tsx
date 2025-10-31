@@ -52,7 +52,7 @@ export function AdminDashboardHome() {
                     <span>{kpi.change} vs last month</span>
                   </div>
                 </div>
-                <div className={`w-12 h-12 ${kpi.color} bg-opacity-10 rounded-lg flex items-center justify-center`}>
+                <div className={`w-12 h-12  bg-opacity-10 rounded-lg flex items-center justify-center`}>
                   <kpi.icon className={`w-6 h-6 ${kpi.color.replace('bg-', 'text-')}`} />
                 </div>
               </div>

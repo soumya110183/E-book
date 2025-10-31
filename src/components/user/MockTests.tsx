@@ -1,11 +1,17 @@
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../ui/card';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../ui/tabs';
 import { Progress } from '../ui/progress';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../ui/dialog';
 import { Clock, Trophy, Target, TrendingUp, Award, ChevronRight } from 'lucide-react';
 
 export function MockTests() {
+
+   const [selectedTest, setSelectedTest] = useState<any | null>(null);
+   const [continueTest, setContinueTest] = useState<any | null>(null);
+
   const ongoingTests = [
     { id: 1, title: 'Mathematics Mock Test 3', subject: 'Mathematics', questions: 50, completed: 25, duration: '2 hours', difficulty: 'Medium' },
     { id: 2, title: 'Physics Comprehensive Exam', subject: 'Physics', questions: 75, completed: 10, duration: '3 hours', difficulty: 'Hard' },
@@ -31,6 +37,24 @@ export function MockTests() {
     { label: 'Study Time', value: '156h', icon: Clock, color: 'bg-purple-500' },
   ];
 
+   const handleStartClick = (test: any) => setSelectedTest(test);
+  const handleCloseModal = () => setSelectedTest(null);
+  const handleStartTest = () => {
+    console.log('Starting test:', selectedTest);
+    setSelectedTest(null);
+  };
+  const handleContinueClick = (test: any) => setContinueTest(test);
+const handleCloseContinueModal = () => setContinueTest(null);
+
+// Example navigation function
+const handleGoToOngoingTest = () => {
+  console.log("Redirecting to ongoing test:", continueTest);
+  // Replace this with your actual navigation (React Router / Next.js / etc.)
+  window.location.href = `/test/${continueTest.id}`;
+  setContinueTest(null);
+};
+
+
   return (
     <div className="space-y-6">
       <div>
@@ -48,7 +72,7 @@ export function MockTests() {
                   <p className="text-sm text-gray-500 mb-1">{stat.label}</p>
                   <h3 className="text-[#1d4d6a]">{stat.value}</h3>
                 </div>
-                <div className={`w-12 h-12 ${stat.color} bg-opacity-10 rounded-lg flex items-center justify-center`}>
+                <div className={`w-12 h-12  bg-opacity-10 rounded-lg flex items-center justify-center`}>
                   <stat.icon className={`w-6 h-6 ${stat.color.replace('bg-', 'text-')}`} />
                 </div>
               </div>
@@ -100,7 +124,10 @@ export function MockTests() {
                   <div className="text-xs text-gray-500">
                     {test.participants.toLocaleString()} students participated
                   </div>
-                  <Button className="w-full bg-[#bf2026] hover:bg-[#a01c22] text-white">
+                 <Button
+                    className="w-full bg-[#bf2026] hover:bg-[#a01c22] text-white"
+                    onClick={() => handleStartClick(test)}
+                  >
                     Start Test
                   </Button>
                 </CardContent>
@@ -135,10 +162,14 @@ export function MockTests() {
                         <Clock className="w-4 h-4" />
                         <span>Time remaining: {test.duration}</span>
                       </div>
-                      <Button className="bg-[#bf2026] hover:bg-[#a01c22] text-white">
-                        Continue Test
-                        <ChevronRight className="w-4 h-4 ml-2" />
-                      </Button>
+                      <Button
+  className="bg-[#bf2026] hover:bg-[#a01c22] text-white"
+  onClick={() => handleContinueClick(test)}
+>
+  Continue Test
+  <ChevronRight className="w-4 h-4 ml-2" />
+</Button>
+
                     </div>
                   </div>
                 </CardContent>
@@ -146,6 +177,43 @@ export function MockTests() {
             ))}
           </div>
         </TabsContent>
+        {/* Continue Test Modal */}
+<Dialog open={!!continueTest} onOpenChange={handleCloseContinueModal}>
+  <DialogContent className="max-w-md">
+    {continueTest && (
+      <>
+        <DialogHeader>
+          <DialogTitle className="text-[#1d4d6a]">
+            Continue {continueTest.title}
+          </DialogTitle>
+          <DialogDescription>
+            You have an ongoing test. Would you like to resume it now?
+          </DialogDescription>
+        </DialogHeader>
+        <div className="space-y-3 text-sm text-gray-700 mt-2">
+          <p><span className="font-medium">📚 Subject:</span> {continueTest.subject}</p>
+          <p><span className="font-medium">📝 Progress:</span> {continueTest.completed}/{continueTest.questions} questions completed</p>
+          <p><span className="font-medium">🕒 Duration:</span> {continueTest.duration}</p>
+        </div>
+        <div className="mt-6 flex justify-end gap-3">
+          <Button
+            onClick={handleCloseContinueModal}
+            className="bg-gray-200 text-gray-700 hover:bg-gray-300"
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleGoToOngoingTest}
+            className="bg-[#bf2026] hover:bg-[#a01c22] text-white"
+          >
+            Resume Test
+          </Button>
+        </div>
+      </>
+    )}
+  </DialogContent>
+</Dialog>
+
 
         {/* Completed Tests */}
         <TabsContent value="completed" className="mt-6">
@@ -188,7 +256,34 @@ export function MockTests() {
             ))}
           </div>
         </TabsContent>
-
+{/* Test Modal */}
+      <Dialog open={!!selectedTest} onOpenChange={handleCloseModal}>
+        <DialogContent className="max-w-md">
+          {selectedTest && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-[#1d4d6a]">{selectedTest.title}</DialogTitle>
+                <DialogDescription>Review details before starting the test.</DialogDescription>
+              </DialogHeader>
+              <div className="space-y-3 text-sm text-gray-700 mt-2">
+                <p><span className="font-medium">📚 Subject:</span> {selectedTest.subject}</p>
+                <p><span className="font-medium">🕒 Duration:</span> {selectedTest.duration}</p>
+                <p><span className="font-medium">📝 Questions:</span> {selectedTest.questions}</p>
+                <p><span className="font-medium">⚡ Difficulty:</span> {selectedTest.difficulty}</p>
+                <p><span className="font-medium">👥 Participants:</span> {selectedTest.participants.toLocaleString()}</p>
+              </div>
+              <div className="mt-6 flex justify-end gap-3">
+                <Button onClick={handleCloseModal} className="bg-gray-200 text-gray-700 hover:bg-gray-300">
+                  Cancel
+                </Button>
+                <Button onClick={handleStartTest} className="bg-[#bf2026] hover:bg-[#a01c22] text-white">
+                  Start Test
+                </Button>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
         {/* Leaderboard */}
         <TabsContent value="leaderboard" className="mt-6">
           <Card className="border-none shadow-md">

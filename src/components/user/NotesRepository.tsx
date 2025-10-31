@@ -8,6 +8,7 @@ import { Search, Filter, Download, Eye, Star } from 'lucide-react';
 export function NotesRepository() {
   const [selectedNote, setSelectedNote] = useState<any>(null);
   const [showPreview, setShowPreview] = useState(false);
+  const [activeCategory, setActiveCategory] = useState('All');
 
   const categories = ['All', 'Mathematics', 'Physics', 'Chemistry', 'Computer Science', 'Biology', 'Statistics'];
 
@@ -26,6 +27,12 @@ export function NotesRepository() {
     setSelectedNote(note);
     setShowPreview(true);
   };
+
+  // Filter notes by selected category
+  const filteredNotes =
+    activeCategory === 'All'
+      ? notes
+      : notes.filter((note) => note.category === activeCategory);
 
   return (
     <div className="space-y-6">
@@ -52,13 +59,18 @@ export function NotesRepository() {
         </Button>
       </div>
 
-      {/* Categories */}
+      {/* Category Buttons */}
       <div className="flex gap-2 flex-wrap">
         {categories.map((category) => (
           <Button
             key={category}
             variant="outline"
-            className={category === 'All' ? 'bg-[#bf2026] text-white hover:bg-[#a01c22] hover:text-white' : ''}
+            onClick={() => setActiveCategory(category)}
+            className={`transition-all ${
+              activeCategory === category
+                ? 'bg-[#bf2026] text-white border-[#bf2026] shadow-md scale-105'
+                : 'bg-white text-gray-700 hover:bg-[#f9eaea] hover:text-[#bf2026]'
+            }`}
           >
             {category}
           </Button>
@@ -66,53 +78,53 @@ export function NotesRepository() {
       </div>
 
       {/* Featured Notes */}
-      <div>
-        <h3 className="text-[#1d4d6a] mb-4">Featured Notes</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          {notes.filter(n => n.featured).map((note) => (
-            <Card key={note.id} className="border-none shadow-md hover:shadow-xl transition-all group">
-              <CardContent className="p-0">
-                <div className="relative bg-gradient-to-br from-[#1d4d6a] to-[#2a5f7f] h-40 flex items-center justify-center rounded-t-lg">
-                  <span className="text-6xl">📝</span>
-                  <Badge className="absolute top-3 right-3 bg-yellow-500 text-white">Featured</Badge>
-                </div>
-                <div className="p-4">
-                  <Badge className="bg-blue-100 text-blue-700 mb-2">{note.category}</Badge>
-                  <h4 className="text-[#1d4d6a] mb-1">{note.title}</h4>
-                  <p className="text-sm text-gray-500 mb-3">by {note.author}</p>
-                  <div className="flex items-center gap-4 mb-3 text-xs text-gray-600">
-                    <span>{note.pages} pages</span>
-                    <span className="flex items-center gap-1">
-                      <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                      {note.rating}
-                    </span>
-                    <span>{note.downloads} downloads</span>
+      {activeCategory === 'All' && (
+        <div>
+          <h3 className="text-[#1d4d6a] mb-4">Featured Notes</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            {notes.filter((n) => n.featured).map((note) => (
+              <Card key={note.id} className="border-none shadow-md hover:shadow-xl transition-all group">
+                <CardContent className="p-0">
+                  <div className="relative bg-gradient-to-br from-[#1d4d6a] to-[#2a5f7f] h-40 flex items-center justify-center rounded-t-lg">
+                    <span className="text-6xl">📝</span>
+                    <Badge className="absolute top-3 right-3 bg-yellow-500 text-white">Featured</Badge>
                   </div>
-                  <div className="flex gap-2">
-                    <Button
-                      variant="outline"
-                      className="flex-1"
-                      onClick={() => handlePreview(note)}
-                    >
-                      <Eye className="w-4 h-4 mr-2" />
-                      Preview
-                    </Button>
-                    <Button className="flex-1 bg-[#bf2026] hover:bg-[#a01c22] text-white">
-                      {note.price === 'Free' ? 'Download' : `Buy ${note.price}`}
-                    </Button>
+                  <div className="p-4">
+                    <Badge className="bg-blue-100 text-blue-700 mb-2">{note.category}</Badge>
+                    <h4 className="text-[#1d4d6a] mb-1">{note.title}</h4>
+                    <p className="text-sm text-gray-500 mb-3">by {note.author}</p>
+                    <div className="flex items-center gap-4 mb-3 text-xs text-gray-600">
+                      <span>{note.pages} pages</span>
+                      <span className="flex items-center gap-1">
+                        <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                        {note.rating}
+                      </span>
+                      <span>{note.downloads} downloads</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button variant="outline" className="flex-1" onClick={() => handlePreview(note)}>
+                        <Eye className="w-4 h-4 mr-2" />
+                        Preview
+                      </Button>
+                      <Button className="flex-1 bg-[#bf2026] hover:bg-[#a01c22] text-white">
+                        {note.price === 'Free' ? 'Download' : `Buy ${note.price}`}
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
-      {/* All Notes */}
+      {/* All Notes (filtered) */}
       <div>
-        <h3 className="text-[#1d4d6a] mb-4">All Notes</h3>
+        <h3 className="text-[#1d4d6a] mb-4">
+          {activeCategory === 'All' ? 'All Notes' : `${activeCategory} Notes`}
+        </h3>
         <div className="space-y-3">
-          {notes.map((note) => (
+          {filteredNotes.map((note) => (
             <Card key={note.id} className="border-none shadow-md hover:shadow-lg transition-all">
               <CardContent className="p-4">
                 <div className="flex items-center gap-4">
@@ -141,11 +153,7 @@ export function NotesRepository() {
                       <span>{note.downloads.toLocaleString()} downloads</span>
                     </div>
                     <div className="flex gap-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handlePreview(note)}
-                      >
+                      <Button variant="outline" size="sm" onClick={() => handlePreview(note)}>
                         <Eye className="w-3 h-3 mr-2" />
                         Preview
                       </Button>
@@ -162,7 +170,7 @@ export function NotesRepository() {
         </div>
       </div>
 
-      {/* Preview Dialog */}
+      {/* Preview Modal */}
       <Dialog open={showPreview} onOpenChange={setShowPreview}>
         <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
           <DialogHeader>

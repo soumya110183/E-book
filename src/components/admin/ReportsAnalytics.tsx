@@ -77,7 +77,7 @@ export function ReportsAnalytics() {
             {reports.map((report, index) => (
               <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-[#bf2026] bg-opacity-10 rounded-lg flex items-center justify-center">
+                  <div className="w-12 h-12  bg-opacity-10 rounded-lg flex items-center justify-center">
                     <FileText className="w-6 h-6 text-[#bf2026]" />
                   </div>
                   <div>
