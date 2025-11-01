@@ -1,5 +1,5 @@
 {
-      "name": "E-Book Platform UI/UX Design",
+      "name": "ebook-platform-ui-design",
       "version": "0.1.0",
       "private": true,
       "dependencies": {
@@ -29,6 +29,7 @@
             "@radix-ui/react-toggle": "^1.1.2",
             "@radix-ui/react-toggle-group": "^1.1.2",
             "@radix-ui/react-tooltip": "^1.1.8",
+            "@tailwindcss/vite": "^4.1.16",
             "class-variance-authority": "^0.7.1",
             "clsx": "*",
             "cmdk": "^1.1.1",
@@ -51,10 +52,26 @@
             "@types/react": "^19.2.2",
             "@types/react-dom": "^19.2.2",
             "@vitejs/plugin-react-swc": "^3.10.2",
+            "autoprefixer": "^10.4.21",
+            "postcss": "^8.5.6",
+            "tailwindcss": "^4.1.16",
             "vite": "6.3.5"
       },
       "scripts": {
             "dev": "vite",
             "build": "vite build"
-      }
+      },
+      "description": "This is a code bundle for E-Book Platform UI/UX Design. The original project is available at https://www.figma.com/design/N9FJmAAbhoVchGHeA5O2Iy/E-Book-Platform-UI-UX-Design.",
+      "main": "index.js",
+      "repository": {
+            "type": "git",
+            "url": "git+https://github.com/soumya110183/E-book.git"
+      },
+      "keywords": [],
+      "author": "",
+      "license": "ISC",
+      "bugs": {
+            "url": "https://github.com/soumya110183/E-book/issues"
+      },
+      "homepage": "https://github.com/soumya110183/E-book#readme"
 }
