@@ -43,6 +43,7 @@ export function AdminDashboard({ onNavigate, onLogout }: AdminDashboardProps) {
   const dropdownRef = useRef<HTMLDivElement|null>(null);
   const [avataropen, setAvatarOpen] = useState(false);
   const avatarRef = useRef<HTMLDivElement|null>(null);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const menuItems = [
     { id: 'dashboard' as AdminSection, icon: LayoutDashboard, label: 'Dashboard' },
@@ -75,6 +76,16 @@ export function AdminDashboard({ onNavigate, onLogout }: AdminDashboardProps) {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  //Dark mode toggle effect
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [isDarkMode]);
+
 
   return (
     <div className="min-h-screen bg-[#f5f6f8] flex">
@@ -155,6 +166,18 @@ export function AdminDashboard({ onNavigate, onLogout }: AdminDashboardProps) {
                 />
               </div>
 
+              {/* Dark Mode Toggle */}
+              <button
+                onClick={() => setIsDarkMode(!isDarkMode)}
+                className="p-2 rounded-lg hover:bg-gray-100"
+              >
+                {isDarkMode ? (
+                  <Sun className="w-5 h-5 text-yellow-500" />
+                ) : (
+                  <Moon className="w-5 h-5 text-gray-600" />
+                )}
+              </button>
+
               {/* Notification Dropdown */}
               <div className="relative" ref={dropdownRef}>
                 <button 
@@ -199,15 +222,15 @@ export function AdminDashboard({ onNavigate, onLogout }: AdminDashboardProps) {
               {/* Avatar Dropdown */}
               <div className="relative" ref={avatarRef}>
                 <button 
-                  className="p-2 hover:bg-gray-100 rounded-lg relative"
+                  className="p-1 rounded-full hover:bg-gray-100"
                   onClick={() => setAvatarOpen(!avataropen)}
                 >
-                  <Avatar className="w-8 h-8 runded-full>">
-                    <AvatarFallback className='bg-[#1d4d6a] text-white'>AD</AvatarFallback>
+                  <Avatar className="w-8 h-8">
+                    <AvatarFallback>AD</AvatarFallback>
                   </Avatar>
                 </button>
                 {avataropen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg border border-gray-100 z-50">
+                  <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-xl border border-gray-100 z-50">
                     <div className="p-4 border-b border-gray-200">
                       <p className="text-sm font-medium text-gray-700">Admin</p>
                       <p className="text-xs text-gray-400">admin@academichub.com</p>

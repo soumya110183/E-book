@@ -8,8 +8,8 @@ interface HeroProps {
 
 export function Hero({ onNavigate, onOpenBook }: HeroProps) {
   return (
-    <section className="min-h-[80vh] bg-linear-to-br from-[#1d4d6a] via-[#2a5f7f] to-[#1d4d6a] text-white overflow-hidden flex items-center justify-center px-30  ">
-      <div className="max-w-7xl w-full flex flex-col md:flex-row items-center justify-between  ">
+    <section className="min-h-[80vh] bg-gradient-to-br from-[#1d4d6a] via-[#2a5f7f] to-[#1d4d6a] text-white overflow-hidden flex items-center justify-center px-6 md:px-12 py-12">
+      <div className="max-w-7xl w-full flex flex-col md:flex-row items-center justify-between gap-12">
 
         {/* LEFT SIDE - TEXT CONTENT */}
         <div className="w-full md:w-[48%] text-left space-y-6 md:pl-4">
@@ -27,11 +27,10 @@ export function Hero({ onNavigate, onOpenBook }: HeroProps) {
           >
             Start Reading
           </Button>
-        </div>
-        </div>
+        </div></div>
 
         {/* RIGHT SIDE - CAROUSEL */}
-        <div className="w-full md:w-[48%] flex justify-between md:pr-4">
+        <div className="w-full md:w-[48%] flex justify-end md:pr-4">
           <div className="max-w-[450px] w-full">
             <Carousel onNavigate={onNavigate} onOpenBook={onOpenBook} />
           </div>

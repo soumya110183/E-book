@@ -1,44 +1,35 @@
-import React from "react";
-import { Card, CardContent } from "../ui/card";
-
-const faqs = [
-  {
-    question: "What’s included in the monthly and annual subscriptions?",
-    answer:
-      "Both plans give you full access to our entire e-book library, offline reading, bookmarks, and note syncing. Annual plans also include exclusive premium titles and 2 months free compared to monthly billing.",
-  },
-  {
-    question: "Can I switch from a monthly to an annual plan later?",
-    answer:
-      "Absolutely! You can upgrade to the annual plan anytime from your account’s billing section. Your remaining monthly balance will be adjusted automatically.",
-  },
-  {
-    question: "Do you offer refunds or cancellations?",
-    answer:
-      "You can cancel anytime before your next billing cycle. Annual plans canceled within 14 days of purchase are eligible for a full refund as per our refund policy.",
-  },
-  {
-    question: "Are there any student or academic discounts?",
-    answer:
-      "Yes! Students and educators can enjoy up to 30% off on both monthly and annual plans. Simply verify your academic email to unlock the discount.",
-  },
-];
-
+import React from 'react';
 
 const FAQSection = () => (
-  <div>
-    <h2 className="text-3xl text-[#1d4d6a] text-center mb-12 mt-16">
+  <div className="mt-20">
+    <h2 className="text-3xl text-[#1d4d6a] text-center mb-12">
       Frequently Asked Questions
     </h2>
-    <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-      {faqs.map((faq, index) => (
-        <Card key={index} className="border-none shadow-md">
-          <CardContent className="p-6">
-            <h3 className="text-[#1d4d6a] mb-3">{faq.question}</h3>
-            <p className="text-sm text-gray-600">{faq.answer}</p>
-          </CardContent>
-        </Card>
-      ))}
+    <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      <div>
+        <h3 className="text-[#1d4d6a] mb-2">Can I switch plans anytime?</h3>
+        <p className="text-gray-600 text-sm">
+          Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately.
+        </p>
+      </div>
+      <div>
+        <h3 className="text-[#1d4d6a] mb-2">What payment methods do you accept?</h3>
+        <p className="text-gray-600 text-sm">
+          We accept all major credit cards, PayPal, and institutional purchase orders.
+        </p>
+      </div>
+      <div>
+        <h3 className="text-[#1d4d6a] mb-2">Is there a free trial?</h3>
+        <p className="text-gray-600 text-sm">
+          Yes! All plans come with a 14-day free trial. No credit card required to start.
+        </p>
+      </div>
+      <div>
+        <h3 className="text-[#1d4d6a] mb-2">What's your refund policy?</h3>
+        <p className="text-gray-600 text-sm">
+          30-day money-back guarantee. If you're not satisfied, we'll refund you in full.
+        </p>
+      </div>
     </div>
   </div>
 );
