@@ -12,7 +12,7 @@ type HomeProps = {
 
 export function Home({ onNavigate, onOpenBook }: HomeProps) {
   return (
-    <div className="min-h-screen bg-whitez">
+    <div className="min-h-screen bg-white">
       <Navbar onNavigate={onNavigate} />
       <Hero onNavigate={onNavigate} onOpenBook={onOpenBook} />
       <StatsSection />

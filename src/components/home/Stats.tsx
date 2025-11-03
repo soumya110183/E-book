@@ -9,7 +9,7 @@ export function StatsSection() {
   ];
 
   return (
-    <section className="py-6 bg-white border-b border-gray-200 mt-10 mb-12">
+    <section className="py-6 bg-white border-b border-gray-200 ">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {stats.map(({ icon: Icon, value, label }) => (

@@ -26,7 +26,7 @@ const faqs = [
 
 const FAQSection = () => (
   <div>
-    <h2 className="text-3xl text-[#1d4d6a] text-center mb-12">
+    <h2 className="text-3xl text-[#1d4d6a] text-center mb-12 mt-16">
       Frequently Asked Questions
     </h2>
     <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">

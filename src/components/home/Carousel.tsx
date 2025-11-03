@@ -112,7 +112,7 @@ export function Carousel({ onNavigate, onOpenBook }: CarouselProps) {
             }}
             onClick={() => handleBookClick(book)}
           >
-            <Card className="w-56 h-[280px] overflow-hidden bg-white backdrop-blur-md border border-white/20 shadow-2xl rounded-2xl">
+            <Card className="w-60 h-80 overflow-hidden bg-white backdrop-blur-md border border-white/20 shadow-2xl rounded-2xl">
               <div className="h-40 overflow-hidden rounded-t-lg">
   <ImageWithFallback
     src={book.cover}

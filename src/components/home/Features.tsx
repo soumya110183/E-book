@@ -35,7 +35,7 @@ export function FeaturesSection() {
   ];
 
   return (
-    <section className="py-24 bg-[#f5f6f8] mb-16 mt-12">
+    <section className="py-24 bg-[#f5f6f8]  ">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">

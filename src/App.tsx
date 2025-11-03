@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { Home } from './components/Home';
 import { UserDashboard } from './components/UserDashboard';
 import { AdminDashboard } from './components/AdminDashboard';
@@ -12,6 +12,24 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
   const [selectedBook, setSelectedBook] = useState<any>(null);
   const [userRole, setUserRole] = useState<'user' | 'admin' | null>(null);
+
+
+  interface NavigateHandler {
+    (page: Page): void;
+  }
+
+
+  const handleNavigate: NavigateHandler = (page) => {
+    setCurrentPage(page);
+  };
+
+  // 👇 Scroll to top whenever currentPage changes
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // or "auto" for instant scroll
+    });
+  }, [currentPage]);
 
   const handleLogin = (role: 'user' | 'admin') => {
     setUserRole(role);
@@ -27,9 +45,6 @@ export default function App() {
     setCurrentPage('reader');
   };
 
-  const handleNavigate = (page: string) => {
-    setCurrentPage(page as Page);
-  };
 
   const handleLogout = () => {
     setUserRole(null);
