@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { 
   BookOpen, 
   Home, 
@@ -13,7 +13,8 @@ import {
   TrendingUp,
   Trophy,
   Clock,
-  ChevronRight
+  ChevronRight,
+  Menu
 } from 'lucide-react';
 import {
   Dialog,
@@ -47,6 +48,11 @@ type UserSection = 'dashboard' | 'library' | 'tests' | 'notes' | 'writing' | 'jo
 
 export function UserDashboard({ onNavigate, onOpenBook, onLogout }: UserDashboardProps) {
   const [activeSection, setActiveSection] = useState<UserSection>('dashboard');
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const [avatarOpen, setAvatarOpen] = useState(false);
+  const avatarRef = useRef<HTMLDivElement | null>(null);
 
   const menuItems = [
     { id: 'dashboard' as UserSection, icon: Home, label: 'Dashboard' },
@@ -59,16 +65,44 @@ export function UserDashboard({ onNavigate, onOpenBook, onLogout }: UserDashboar
     { id: 'profile' as UserSection, icon: User, label: 'Profile' },
   ];
 
+  const notifications = [
+    { id: 1, message: 'Your test results are available.', time: '2h ago' },
+    { id: 2, message: 'New notes added to your library.', time: '5h ago' },
+    { id: 3, message: 'Subscription renewed successfully.', time: '1d ago' },
+    { id: 4, message: 'You earned a new badge!.', time: '3d ago' },
+  ];
+
+ // Handle outside clicks for dropdowns
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false);
+      }
+      if (avatarRef.current && !avatarRef.current.contains(event.target as Node)) {
+        setAvatarOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#f5f6f8] flex">
       {/* Sidebar */}
-      <aside className="w-64 bg-white border-r border-gray-200 fixed h-screen overflow-y-auto">
-        <div className="p-6 border-b border-gray-200">
-          <div className="flex items-center gap-2 mb-1">
+      <aside className={`${sidebarCollapsed ? 'w-20' : 'w-64'} bg-white border-r border-gray-200 fixed h-full transition-width flex flex-col`}>
+        <div className="p-6 border-b border-gray-200 flex items-center justify-between">
+          {!sidebarCollapsed && (
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <BookOpen className="w-7 h-7 text-[#bf2026]" />
+                <span className="text-[#1d4d6a] font-medium">AcademicHub</span>
+              </div>
+              <p className="text-xs text-gray-500">Student Portal</p>
+            </div>
+          )}
+          {sidebarCollapsed && (
             <BookOpen className="w-7 h-7 text-[#bf2026]" />
-            <span className="text-[#1d4d6a]">AcademicHub</span>
-          </div>
-          <p className="text-xs text-gray-500">Student Portal</p>
+          )}
         </div>
 
         <nav className="p-4">
@@ -81,9 +115,10 @@ export function UserDashboard({ onNavigate, onOpenBook, onLogout }: UserDashboar
                   ? 'bg-[#bf2026] text-white shadow-md'
                   : 'text-gray-700 hover:bg-gray-100'
               }`}
+              title={sidebarCollapsed ? item.label : undefined}
             >
               <item.icon className="w-5 h-5" />
-              <span className="text-sm">{item.label}</span>
+              {!sidebarCollapsed && <span className="text-sm">{item.label}</span>}
             </button>
           ))}
         </nav>
@@ -100,13 +135,21 @@ export function UserDashboard({ onNavigate, onOpenBook, onLogout }: UserDashboar
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 ml-64">
+      <div className={`flex-1 ${sidebarCollapsed ? 'ml-20' : 'ml-64'} transition-all duration-300`}>
         {/* Header */}
         <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
           <div className="px-8 py-4 flex items-center justify-between">
-            <div>
-              <h1 className="text-[#1d4d6a] mb-1">Welcome back, Alex!</h1>
-              <p className="text-sm text-gray-500">Continue your learning journey</p>
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+                className="p-2 hover:bg-gray-100 rounded-lg"
+              >
+                <Menu className="w-5 h-5 text-gray-600" />
+              </button>
+              <div>
+                <h1 className="text-xl font-semibold text-[#1d4d6a]">Welcome Back, Student!</h1>
+                <p className="text-sm text-gray-500">Continue your learning journey</p>
+              </div>
             </div>
             <div className="flex items-center gap-4">
               <div className="relative">
@@ -117,13 +160,83 @@ export function UserDashboard({ onNavigate, onOpenBook, onLogout }: UserDashboar
                   className="pl-10 pr-4 py-2 bg-gray-100 rounded-lg border-none focus:ring-2 focus:ring-[#bf2026] w-80"
                 />
               </div>
-              <button className="relative p-2 hover:bg-gray-100 rounded-lg">
-                <Bell className="w-5 h-5 text-gray-600" />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-[#bf2026] rounded-full"></span>
-              </button>
-              <Avatar>
-                <AvatarFallback className="bg-[#1d4d6a] text-white">AR</AvatarFallback>
-              </Avatar>
+
+              {/* Notifications Dropdown */}
+              <div className="relative" ref={dropdownRef}>
+                <button
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  className="relative p-2 hover:bg-gray-100 rounded-lg"
+                >
+                  <Bell className="w-5 h-5 text-gray-600" />
+                  {notifications.length > 0 && (
+                    <span className="absolute top-1 right-1 w-2 h-2 bg-[#bf2026] rounded-full"></span>
+                  )}
+                </button>
+                {dropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-64 bg-white shadow-lg rounded-xl border border-gray-100 z-50">
+                    <div className="p-3 border-b border-gray-200 font-semibold text-gray-700">
+                      Notifications
+                    </div>
+                    <ul className="max-h-60 overflow-y-auto">
+                      {notifications.length > 0 ? (
+                        notifications.map((n) => (
+                          <li
+                            key={n.id}
+                            className="px-3 py-2 text-sm text-gray-600 hover:bg-gray-50"
+                          >
+                            {n.message}
+                          </li>
+                        ))
+                      ) : (
+                        <li className="px-3 py-4 text-sm text-gray-400 text-center">
+                          No new notifications
+                        </li>
+                      )}
+                    </ul>
+                    <div className="text-center py-2 border-t border-gray-200">
+                      <button className="text-[#bf2026] text-sm font-medium hover:underline">
+                        View all
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Avatar Dropdown */}
+              <div className="relative" ref={avatarRef}>
+                <button
+                  onClick={() => setAvatarOpen(!avatarOpen)}
+                  className="p-2 hover:bg-gray-100 rounded-lg relative"
+                >
+                  <Avatar className="w-8 h-8 rounded-full">
+                    <AvatarFallback className="bg-[#1d4d6a] text-white">JD</AvatarFallback>
+                  </Avatar>
+                </button>
+                {avatarOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                    <div className="p-4 border-b border-gray-200">
+                      <p className="text-sm font-medium text-gray-700">John Doe</p>
+                      <p className="text-xs text-gray-400">johndoe@example.com</p>
+                    </div>
+                    <ul className="py-1">
+                      <li>
+                        <button
+                          onClick={() => { setActiveSection('profile'); setAvatarOpen(false); }}
+                          className="px-4 py-2 hover:bg-gray-100 w-full text-left"
+                        >
+                          Profile
+                        </button>
+                        <button
+                          onClick={onLogout}
+                          className="px-4 py-2 hover:bg-gray-100 w-full text-left text-red-600"
+                        >
+                          Logout
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </header>
