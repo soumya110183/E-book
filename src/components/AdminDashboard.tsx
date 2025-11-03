@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { 
   LayoutDashboard,
   Users,
@@ -12,7 +12,9 @@ import {
   LogOut,
   Search,
   Menu,
-  Briefcase
+  Briefcase,
+  Sun,
+  Moon
 } from 'lucide-react';
 import { Button } from './ui/button';
 import { Avatar, AvatarFallback } from './ui/avatar';
@@ -37,6 +39,11 @@ type AdminSection = 'dashboard' | 'customers' | 'content' | 'drm' | 'payments' |
 export function AdminDashboard({ onNavigate, onLogout }: AdminDashboardProps) {
   const [activeSection, setActiveSection] = useState<AdminSection>('dashboard');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement|null>(null);
+  const [avataropen, setAvatarOpen] = useState(false);
+  const avatarRef = useRef<HTMLDivElement|null>(null);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const menuItems = [
     { id: 'dashboard' as AdminSection, icon: LayoutDashboard, label: 'Dashboard' },
@@ -50,6 +57,35 @@ export function AdminDashboard({ onNavigate, onLogout }: AdminDashboardProps) {
     { id: 'jobs' as AdminSection, icon: Briefcase, label: 'Job Portal' },
     { id: 'settings' as AdminSection, icon: Settings, label: 'Settings' },
   ];
+  const notifications = [
+    { id: 1, message: 'New user registered: Jane Doe', time: '2 mins ago' },
+    { id: 2, message: 'Subscription renewed: John Smith', time: '10 mins ago' },
+    { id: 3, message: 'New content uploaded: "Advanced Mathematics"', time: '1 hour ago' },
+  ];
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false);
+      }
+      if (avatarRef.current && !avatarRef.current.contains(event.target as Node)) {
+        setAvatarOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  //Dark mode toggle effect
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [isDarkMode]);
+
 
   return (
     <div className="min-h-screen bg-[#f5f6f8] flex">
@@ -129,13 +165,97 @@ export function AdminDashboard({ onNavigate, onLogout }: AdminDashboardProps) {
                   className="pl-10 pr-4 py-2 bg-gray-100 rounded-lg border-none focus:ring-2 focus:ring-[#bf2026] w-80"
                 />
               </div>
-              <button className="relative p-2 hover:bg-gray-100 rounded-lg">
-                <Bell className="w-5 h-5 text-gray-600" />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-[#bf2026] rounded-full"></span>
+
+              {/* Dark Mode Toggle */}
+              <button
+                onClick={() => setIsDarkMode(!isDarkMode)}
+                className="p-2 rounded-lg hover:bg-gray-100"
+              >
+                {isDarkMode ? (
+                  <Sun className="w-5 h-5 text-yellow-500" />
+                ) : (
+                  <Moon className="w-5 h-5 text-gray-600" />
+                )}
               </button>
-              <Avatar>
-                <AvatarFallback className="bg-[#1d4d6a] text-white">AD</AvatarFallback>
-              </Avatar>
+
+              {/* Notification Dropdown */}
+              <div className="relative" ref={dropdownRef}>
+                <button 
+                  className="relative p-2 hover:bg-gray-100 rounded-lg"
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                >
+                  <Bell className="w-5 h-5 text-gray-600" />
+                  {notifications.length > 0 &&(
+                    <span className="absolute top-1 right-1 w-2 h-2 bg-[#bf2026] rounded-full"></span>
+                  )}
+                </button>
+                {dropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-64 bg-white shadow-lg rounded-xl border border-gray-100 z-50">
+                    <div className="p-3 border-b border-gray-200 font-semibold text-gray-700">
+                      Notifications
+                    </div>
+                    <ul className="max-h-60 overflow-y-auto">
+                      {notifications.length > 0 ? (
+                        notifications.map((n) => (
+                          <li
+                            key={n.id}
+                            className="px-3 py-2 text-sm text-gray-600 hover:bg-gray-50"
+                          >
+                            {n.message}
+                          </li>
+                        ))
+                      ) : (
+                        <li className="px-3 py-4 text-sm text-gray-400 text-center">
+                          No new notifications
+                        </li>
+                      )}
+                    </ul>
+                    <div className="text-center py-2 border-t border-gray-200">
+                      <button className="text-[#bf2026] text-sm font-medium hover:underline">
+                        View all
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Avatar Dropdown */}
+              <div className="relative" ref={avatarRef}>
+                <button 
+                  className="p-1 rounded-full hover:bg-gray-100"
+                  onClick={() => setAvatarOpen(!avataropen)}
+                >
+                  <Avatar className="w-8 h-8">
+                    <AvatarFallback>AD</AvatarFallback>
+                  </Avatar>
+                </button>
+                {avataropen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-xl border border-gray-100 z-50">
+                    <div className="p-4 border-b border-gray-200">
+                      <p className="text-sm font-medium text-gray-700">Admin</p>
+                      <p className="text-xs text-gray-400">admin@academichub.com</p>
+                    </div>
+                    <ul className="py-2">
+                      <li>
+                        <button
+                          className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-600 hover:bg-gray-50"
+                          onClick={() => setActiveSection("settings")}
+                        >
+                          <Settings className="w-4 h-4" /> Settings
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-600 hover:bg-gray-50"
+                          onClick={onLogout}
+                        >
+                          <LogOut className="w-4 h-4" /> Logout
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </header>
