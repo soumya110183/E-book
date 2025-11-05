@@ -8,11 +8,11 @@ interface HeroProps {
 
 export function Hero({ onNavigate, onOpenBook }: HeroProps) {
   return (
-    <section className="min-h-[80vh] bg-gradient-to-br from-[#1d4d6a] via-[#2a5f7f] to-[#1d4d6a] text-white overflow-hidden flex items-center justify-center px-30">
-      <div className="max-w-7xl w-full flex flex-col md:flex-row items-center justify-between">
+    <section className="min-h-[80vh] bg-linear-to-br from-[#1d4d6a] via-[#2a5f7f] to-[#1d4d6a] text-white overflow-hidden flex items-center justify-center px-20  ">
+      <div className="max-w-8xl w-full flex flex-col md:flex-row items-center justify-between  ">
 
         {/* LEFT SIDE - TEXT CONTENT */}
-        <div className="w-full md:w-[48%] text-left space-y-6 md:pl-4">
+        <div className="w-full  text-left space-y-6 md:pl-4">
           <h1 className="text-4xl md:text-5xl font-bold leading-tight">
             Explore Your{" "}
             <span className="text-[#bf2026]">Next Academic Adventure</span>
@@ -27,11 +27,12 @@ export function Hero({ onNavigate, onOpenBook }: HeroProps) {
           >
             Start Reading
           </Button>
-        </div></div>
+        </div>
+        </div>
 
         {/* RIGHT SIDE - CAROUSEL */}
-        <div className="w-full md:w-[48%] flex justify-end md:pr-4">
-          <div className="max-w-[450px] w-full">
+        <div className="w-full md:w-[48%] flex justify-between md:pr-4">
+          <div className=" w-full">
             <Carousel onNavigate={onNavigate} onOpenBook={onOpenBook} />
           </div>
         </div>

@@ -39,14 +39,6 @@ export function PublicPages({ page, onNavigate, onLogin }: PublicPagesProps) {
   );
 }
 
-
-
-
-
-
-
-
-
 function LoginPage({ onNavigate, onLogin }: { onNavigate: (page: string) => void, onLogin?: (role: 'user' | 'admin') => void }) {
   return (
     <div className="min-h-[80vh] flex items-center justify-center py-6  px-6 bg-[#f5f6f8]">

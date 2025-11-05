@@ -7,7 +7,7 @@ interface CTASectionProps {
 
 export function CTASection({ onNavigate }: CTASectionProps) {
   return (
-    <section className="relative bg-gradient-to-br from-[#1d4d6a] via-[#2a5f7f] to-[#1d4d6a] text-white py-20 overflow-hidden mt-12">
+    <section className="relative bg-gradient-to-br from-[#1d4d6a] via-[#2a5f7f] to-[#1d4d6a] text-white py-20 overflow-hidden">
       {/* Decorative Gradient Overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.12),transparent_70%)] pointer-events-none"></div>
 

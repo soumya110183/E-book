@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Users, Star } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
 import { ImageWithFallback } from "../figma/ImageWithFallback";
 
+
 interface CarouselProps {
   onNavigate: (page: string) => void;
-  onOpenBook?: (book: any) => void;
+
+
 }
 
-export function Carousel({ onNavigate, onOpenBook }: CarouselProps) {
+export function Carousel({ onNavigate}: CarouselProps) {
   const featuredBooks = [
     {
       id: 1,
@@ -60,8 +63,9 @@ export function Carousel({ onNavigate, onOpenBook }: CarouselProps) {
   const handlePrev = () =>
     setCurrent((prev) => (prev - 1 + featuredBooks.length) % featuredBooks.length);
 
-  const handleBookClick = (book: any) =>
-    onOpenBook ? onOpenBook(book) : onNavigate("payment");
+    const handleReadNow = () => {
+      onNavigate("login"); // redirect to /login route
+    };
 
   useEffect(() => {
     const interval = setInterval(() => handleNext(), 5000);
@@ -110,7 +114,7 @@ export function Carousel({ onNavigate, onOpenBook }: CarouselProps) {
               zIndex,
               opacity,
             }}
-            onClick={() => handleBookClick(book)}
+            onClick={handleReadNow}
           >
             <Card className="w-56 h-[280px] overflow-hidden bg-white backdrop-blur-md border border-white/20 shadow-2xl rounded-2xl">
               <div className="h-40 overflow-hidden rounded-t-lg">
@@ -136,7 +140,7 @@ export function Carousel({ onNavigate, onOpenBook }: CarouselProps) {
                     {book.readers.toLocaleString()}
                   </div>
                 </div>
-                <Button className="w-full bg-[#bf2026] hover:bg-[#a01c22] text-white transition-all">
+                <Button onClick= {handleReadNow} className="w-full bg-[#bf2026] hover:bg-[#a01c22] text-white transition-all">
                   Read Now
                 </Button>
               </CardContent>
