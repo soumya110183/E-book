@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Home } from './components/Home';
 import { UserDashboard } from './components/UserDashboard';
 import { AdminDashboard } from './components/AdminDashboard';
@@ -12,6 +12,8 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
   const [selectedBook, setSelectedBook] = useState<any>(null);
   const [userRole, setUserRole] = useState<'user' | 'admin' | null>(null);
+
+  useEffect(() => {window.scrollTo({top: 0, behavior: 'smooth'})}, [currentPage]);
 
   const handleLogin = (role: 'user' | 'admin') => {
     setUserRole(role);
