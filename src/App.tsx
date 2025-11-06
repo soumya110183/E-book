@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { Home } from './components/Home';
 import { UserDashboard } from './components/UserDashboard';
 import { AdminDashboard } from './components/AdminDashboard';
@@ -14,7 +14,7 @@ export default function App() {
   const [userRole, setUserRole] = useState<'user' | 'admin' | null>(null);
 
   useEffect(() => {window.scrollTo({top: 0, behavior: 'smooth'})}, [currentPage]);
-
+  useEffect(() => {const loggedIn = localStorage.getItem('isLoggedIn'); if (loggedIn) {setCurrentPage('user-dashboard'); setUserRole('user');}}, []);
   const handleLogin = (role: 'user' | 'admin') => {
     setUserRole(role);
     if (role === 'user') {

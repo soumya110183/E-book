@@ -40,6 +40,11 @@ export function PublicPages({ page, onNavigate, onLogin }: PublicPagesProps) {
 }
 
 function LoginPage({ onNavigate, onLogin }: { onNavigate: (page: string) => void, onLogin?: (role: 'user' | 'admin') => void }) {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const handleLogin = () => {
+    localStorage.setItem('isLoggedIn', 'true');
+    setIsLoggedIn(true);
+  }
   return (
     <div className="min-h-[80vh] flex items-center justify-center py-6  px-6 bg-[#f5f6f8]">
       <Card className="w-full max-w-md border-none shadow-xl">
