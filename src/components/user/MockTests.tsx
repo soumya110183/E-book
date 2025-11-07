@@ -276,7 +276,7 @@ const handleGoToOngoingTest = () => {
                 <Button onClick={handleCloseModal} className="bg-gray-200 text-gray-700 hover:bg-gray-300">
                   Cancel
                 </Button>
-                <Button onClick={handleStartTest} className="bg-[#bf2026] hover:bg-[#a01c22] text-white">
+                <Button onClick={() => window.open(selectedTest.link, "_blank")} className="bg-[#bf2026] hover:bg-[#a01c22] text-white">
                   Start Test
                 </Button>
               </div>

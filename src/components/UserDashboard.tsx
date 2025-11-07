@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, use, Suspense } from "react";
+import { useState, useRef, useEffect, Suspense } from "react";
 import {
   BookOpen,
   Home,
@@ -44,7 +44,8 @@ import { WritingServices } from "./user/WritingServices";
 import { JobPortal } from "./user/JobPortal";
 import { PaymentsSubscriptions } from "./user/PaymentsSubscriptions";
 import { ProfileSettings } from "./user/ProfileSettings";
-import NotificationsView from "./user/NotificationView";
+import NotificationView from "./user/NotificationView";
+import CartPage from "./user/Cartpage";
 
 interface UserDashboardProps {
   onNavigate: (page: string) => void;
@@ -62,17 +63,25 @@ type UserSection =
   | "jobs"
   | "payments"
   | "profile"
-  | "notifications";
+  | "notifications"
+  | "cartpage";
 
 export function UserDashboard({ onNavigate, onOpenBook, onLogout }: UserDashboardProps) {
   const [activeSection, setActiveSection] = useState<UserSection>("dashboard");
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [avatarOpen, setAvatarOpen] = useState(false);
-  const [cartCount, setCartCount] = useState<number>(0);
+  const [cartOpen, setCartOpen] = useState(false);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const avatarRef = useRef<HTMLDivElement>(null);
+  const cartRef = useRef<HTMLDivElement>(null);
+
+  const [cartItems] = useState([
+    { id: 1, name: "React Course", price: 19.99, image: "https://via.placeholder.com/40" },
+    { id: 2, name: "JavaScript Guide", price: 9.99, image: "https://via.placeholder.com/40" },
+    { id: 3, name: "CSS Mastery", price: 14.99, image: "https://via.placeholder.com/40" },
+  ])
 
   const menuItems = [
     { id: "dashboard" as UserSection, icon: Home, label: "Dashboard" },
@@ -101,6 +110,9 @@ export function UserDashboard({ onNavigate, onOpenBook, onLogout }: UserDashboar
       if (avatarRef.current && !avatarRef.current.contains(event.target as Node)) {
         setAvatarOpen(false);
       }
+      if (cartRef.current && !cartRef.current.contains(event.target as Node)) {
+        setCartOpen(false);
+      }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -117,20 +129,10 @@ export function UserDashboard({ onNavigate, onOpenBook, onLogout }: UserDashboar
     localStorage.setItem("sidebar-collapsed", sidebarCollapsed.toString());
   }, [sidebarCollapsed]);
 
-  // const handleNotificationClick = (id: number) => {
-  //   setReadNotifications((prev) => [...prev, id]);
-  //   setActiveSection("notifications");
-  //   setDropdownOpen(false);
-  // };
-
+  // 🔐 Handle logout
   const handleLogoutClick = () => {
     toast.success("Logged out successfully ✅"); // 🔹 UPDATED
     onLogout();
-  };
-
-  const handleAddToCart = () => {
-    setCartCount((count) => count + 1);
-    toast.success("Item added to cart 🛒");
   };
 
   return (
@@ -260,18 +262,61 @@ export function UserDashboard({ onNavigate, onOpenBook, onLogout }: UserDashboar
                 )}
               </div>
 
-              {/* Add to Cart Icon */}
-              <div className="relative">
+              {/* Cart Dropdown */}
+              <div className="relative" ref={cartRef}>
                 <button
-                  className="relative p-2 rounded-lg hover:bg-gray-100"
-                  aria-label="Cart"
-                  onClick={() => toast.success('Item added to cart 🛒')}
+                  className="relative p-2 hover:bg-gray-100 rounded-lg"
+                  onClick={() => setCartOpen(!cartOpen)}
+                  aria-label="Shopping Cart"
                 >
                   <ShoppingCart className="w-5 h-5 text-gray-600" />
-                  {cartCount > 0 && (
+                  {cartItems.length > 0 && (
                     <span className="absolute top-1 right-1 w-2 h-2 bg-[#bf2026] rounded-full"></span>
                   )}
                 </button>
+
+                {cartOpen && (
+                  <div className="absolute right-0 mt-2 w-72 bg-white shadow-lg rounded-xl border border-gray-100 z-50">
+                    <div className="p-3 border-b font-semibold text-gray-700 flex justify-between">
+                      <span>Cart</span>
+                      <span className="text-xs text-gray-500">{cartItems.length} items</span>
+                    </div>
+
+                    {cartItems.length > 0 ? (
+                      <>
+                        <ul className="max-h-60 overflow-y-auto">
+                          {cartItems.map((item) => (
+                            <li
+                              key={item.id}
+                              className="flex items-center gap-3 px-3 py-2 hover:bg-gray-50"
+                            >
+                              <img src={item.image} alt={item.name} className="w-10 h-10 rounded" />
+                              <div className="flex-1">
+                                <p className="text-sm font-medium text-gray-700">{item.name}</p>
+                                <p className="text-xs text-gray-500">${item.price.toFixed(2)}</p>
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                        <div className="text-center py-2 border-t">
+                          <button
+                            onClick={() => {
+                              setActiveSection("cartpage");
+                              setCartOpen(false);
+                            }}
+                            className="text-[#bf2026] text-sm font-medium hover:underline"
+                          >
+                            View Cart
+                          </button>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="text-center text-gray-500 py-6 text-sm">
+                        Your cart is empty 🛍️
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
 
 
@@ -331,7 +376,8 @@ export function UserDashboard({ onNavigate, onOpenBook, onLogout }: UserDashboar
             {activeSection === "jobs" && <JobPortal />}
             {activeSection === "payments" && <PaymentsSubscriptions />}
             {activeSection === "profile" && <ProfileSettings />}
-            {activeSection === "notifications" && <NotificationsView />}
+            {activeSection === "notifications" && <NotificationView onNavigate={onNavigate} />}
+            {activeSection === "cartpage" && <CartPage items={cartItems} />}
           </Suspense>
         </main>
       </div>
