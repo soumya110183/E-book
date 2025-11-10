@@ -3,10 +3,10 @@ import { BookOpen, Users, Award, TrendingUp } from "lucide-react";
 
 export function StatsSection() {
   const stats = [
-    { icon: BookOpen, value: 10000, label: "E-Books Available" },
-    { icon: Users, value: 50000, label: "Active Readers" },
-    { icon: Award, value: 500, label: "Expert Authors" },
-    { icon: TrendingUp, value: 98, label: "Satisfaction Rate", suffix: "%" },
+    { icon: Users, value: 10000, label: "Registered learners" },
+    { icon: BookOpen, value: 350, label: "Agricultural E-Books and Resources", suffix: "+" },
+    { icon: TrendingUp, value: 95, label: "Positive Reviews", suffix: "%" },
+    { icon: Award, value: 9, label: "State Covered in India", suffix: "+" },
   ];
 
   return (

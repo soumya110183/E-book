@@ -48,7 +48,7 @@ const BookCard = ({ book, onNavigate }: any) => {
             <span className="text-sm">{book.rating}</span>
             <span className="text-xs text-gray-500">({book.reviews})</span>
           </div>
-          <span className="text-[#bf2026]">${book.price}</span>
+          <span className="text-[#bf2026]">₹{book.price}</span>
         </div>
         {/* 🛒 Side-by-Side Buttons */}
         <div className="flex items-center justify-between gap-2">

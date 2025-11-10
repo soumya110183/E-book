@@ -18,7 +18,7 @@ export function CTASection({ onNavigate }: CTASectionProps) {
         </h2>
         <p className="text-lg md:text-xl mb-10 text-gray-200 max-w-2xl mx-auto">
           Join thousands of students and researchers who trust{" "}
-          <span className="font-semibold text-white">AcademicHub</span> for their educational growth.
+          <span className="font-semibold text-white">FarmInk Forum</span> for their educational growth.
         </p>
 
         {/* CTA Buttons */}

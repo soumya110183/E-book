@@ -43,8 +43,8 @@ export function FeaturesSection() {
             Everything You Need to Succeed
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Powerful tools and resources designed for students, researchers, and lifelong learners.
-          </p>
+Only a few make it — we’re here to help you become one of them.
+FarmInk Forum gives you the right tools to prepare, perform, and qualify.          </p>
         </div>
 
         {/* Feature Cards */}

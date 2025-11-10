@@ -7,7 +7,9 @@ const MissionSection = () => (
       <div>
         <h2 className="text-4xl text-[#1d4d6a] mb-6">Our Mission</h2>
         <p className="text-gray-700 mb-6">
-At FarmInk Forum, we’re dedicated to empowering agricultural students, educators, and rural communities through accessible, high-quality learning resources. Our platform offers a growing collection of e-books, research materials, and extension education tools — designed to support agricultural development, lifelong learning, and sustainable rural advancement across India.        </p>
+Every year, only a small percentage of aspirants qualify for agricultural entrance exams, scholarships, or government jobs.
+At FarmInk Forum, we aim to help you become one among them.
+By providing focused study materials, smart mock tests, and expert guidance, we help every learner move closer to success.  </p>
         <p className="text-gray-700">
           We believe everyone deserves access to world-class educational materials, regardless of their location or economic background.
         </p>

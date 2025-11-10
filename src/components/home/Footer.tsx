@@ -18,7 +18,7 @@ export function Footer({ onNavigate }: FooterProps) {
           <div>
             <div className="flex items-center gap-2 mb-5">
               <BookOpen className="w-7 h-7 text-[#bf2026]" />
-              <span className="text-xl font-semibold">AcademicHub</span>
+              <span className="text-xl font-semibold">FarmInk Forum</span>
             </div>
             <p className="text-gray-300 text-sm leading-relaxed">
               Your trusted platform for academic excellence and continuous learning.
@@ -106,7 +106,7 @@ export function Footer({ onNavigate }: FooterProps) {
 
         {/* Divider */}
         <div className="border-t border-gray-600 pt-8 text-center text-sm text-gray-300">
-          <p>&copy; 2025 AcademicHub. All rights reserved.</p>
+          <p>&copy; 2025 FarmInk Forum. All rights reserved.</p>
         </div>
       </div>
 
