@@ -295,7 +295,7 @@ export function UserDashboard({ onNavigate, onOpenBook, onLogout }: UserDashboar
                               <img src={item.image} alt={item.name} className="w-10 h-10 rounded" />
                               <div className="flex-1">
                                 <p className="text-sm font-medium text-gray-700">{item.name}</p>
-                                <p className="text-xs text-gray-500">${item.price.toFixed(2)}</p>
+                                <p className="text-xs text-gray-500">₹{item.price.toFixed(2)}</p>
                               </div>
                             </li>
                           ))}

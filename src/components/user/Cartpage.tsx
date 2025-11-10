@@ -72,7 +72,7 @@ export default function CartPage() {
                                         <h2 className="font-semibold text-lg">{item.title}</h2>
                                         <p className="text-gray-600 text-sm">by {item.author}</p>
                                         <p className="text-[#bf2026] font-medium mt-1">
-                                            ${item.price}
+                                            ₹{item.price}
                                         </p>
 
 
@@ -102,11 +102,11 @@ export default function CartPage() {
 
                         <div className="flex justify-between text-gray-700 mb-2">
                             <span>Subtotal</span>
-                            <span>${subtotal.toFixed(2)}</span>
+                            <span>₹{subtotal.toFixed(2)}</span>
                         </div>
                         <div className="flex justify-between text-lg font-bold border-t pt-3">
                             <span>Total</span>
-                            <span>${total}</span>
+                            <span>₹{total}</span>
                         </div>
 
                         <Button className="w-full mt-5 bg-[#bf2026] hover:bg-[#a01c22] text-white py-2 rounded-md text-lg">
