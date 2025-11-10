@@ -23,12 +23,8 @@ export function MyLibrary({ onOpenBook }: MyLibraryProps) {
   const [bookNote, setBookNote] = useState('');
 
   const books = [
-    { id: 1, title: 'Advanced Calculus', author: 'Dr. Sarah Smith', category: 'Mathematics', progress: 65, purchased: '2024-01-15', cover: '📘', pages: 450 },
-    { id: 2, title: 'Quantum Physics Fundamentals', author: 'Prof. Michael Johnson', category: 'Physics', progress: 42, purchased: '2024-02-01', cover: '📗', pages: 520 },
-    { id: 3, title: 'Machine Learning Basics', author: 'Dr. Emily Chen', category: 'Computer Science', progress: 88, purchased: '2024-01-20', cover: '📙', pages: 380 },
-    { id: 4, title: 'Organic Chemistry', author: 'Dr. Robert Williams', category: 'Chemistry', progress: 0, purchased: '2024-03-10', cover: '📕', pages: 620 },
-    { id: 5, title: 'Data Structures & Algorithms', author: 'Prof. James Lee', category: 'Computer Science', progress: 55, purchased: '2024-02-14', cover: '📓', pages: 490 },
-    { id: 6, title: 'Statistical Analysis', author: 'Dr. Anna Martinez', category: 'Statistics', progress: 30, purchased: '2024-02-28', cover: '📔', pages: 410 },
+    { id: 1, title: 'Agricultural Extension Education', author: 'Dr. Sarah Smith', category: 'Agricultural Extension Education', progress: 65, purchased: '2024-01-15', cover: '📘', pages: 450 },
+    { id: 2, title: 'Adult and Continuing Education and Extension', author: 'Prof. Michael Johnson', category: 'Adult and Continuing Education and Extension', progress: 42, purchased: '2024-02-01', cover: '📗', pages: 520 }
   ];
 
   const handleAddNote = (book: any) => {

@@ -30,12 +30,12 @@ export function WritingServices() {
   ];
 
   const services = [
-    { name: 'Research Paper', description: 'Comprehensive research papers with citations', turnaround: '7-14 days', price: 'From $49' },
-    { name: 'Essay Writing', description: 'Academic essays on any topic', turnaround: '3-7 days', price: 'From $29' },
-    { name: 'Dissertation', description: 'Full dissertation writing support', turnaround: '30-90 days', price: 'From $299' },
-    { name: 'Thesis Writing', description: 'Master\'s and PhD thesis assistance', turnaround: '14-60 days', price: 'From $199' },
-    { name: 'Literature Review', description: 'Detailed literature reviews', turnaround: '5-10 days', price: 'From $79' },
-    { name: 'Editing & Proofreading', description: 'Professional editing services', turnaround: '1-3 days', price: 'From $19' },
+    { name: 'Research Paper', description: 'Comprehensive research papers with citations', turnaround: '7-14 days', price: 'From ₹49' },
+    { name: 'Essay Writing', description: 'Academic essays on any topic', turnaround: '3-7 days', price: 'From ₹29' },
+    { name: 'Dissertation', description: 'Full dissertation writing support', turnaround: '30-90 days', price: 'From ₹299' },
+    { name: 'Thesis Writing', description: 'Master\'s and PhD thesis assistance', turnaround: '14-60 days', price: 'From ₹199' },
+    { name: 'Literature Review', description: 'Detailed literature reviews', turnaround: '5-10 days', price: 'From ₹79' },
+    { name: 'Editing & Proofreading', description: 'Professional editing services', turnaround: '1-3 days', price: 'From ₹19' },
   ];
 
   const handleEditOrder = (order: any) => {
@@ -245,15 +245,15 @@ export function WritingServices() {
                     <div className="bg-[#bf2026] bg-opacity-10 border border-[#bf2026] rounded-lg p-6">
                       <div className="flex justify-between items-center mb-2">
                         <span className="text-gray-700">Subtotal</span>
-                        <span className="text-gray-900">$89.00</span>
+                        <span className="text-gray-900">₹89.00</span>
                       </div>
                       <div className="flex justify-between items-center mb-2">
                         <span className="text-gray-700">Express Fee</span>
-                        <span className="text-gray-900">$15.00</span>
+                        <span className="text-gray-900">₹15.00</span>
                       </div>
                       <div className="border-t border-[#bf2026] my-3 pt-3 flex justify-between items-center">
                         <span className="text-[#1d4d6a]">Total</span>
-                        <span className="text-[#1d4d6a]">$104.00</span>
+                        <span className="text-[#1d4d6a]">₹104.00</span>
                       </div>
                     </div>
 

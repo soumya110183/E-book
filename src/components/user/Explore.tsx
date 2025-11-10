@@ -6,14 +6,8 @@ import { Button } from "../ui/button";
 function Explore({ onOpenBook }: { onOpenBook: (book: any) => void }) {
   const categories = [
     "All",
-    "Fiction",
-    "Non-Fiction",
-    "Science",
-    "History",
-    "Biography",
-    "Fantasy",
-    "Mystery",
-    "Romance",
+    "Agricultural Extension Education",
+    "Adult and Continuing Education and Extension",
   ];
 
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -21,36 +15,25 @@ function Explore({ onOpenBook }: { onOpenBook: (book: any) => void }) {
   const books = [
     {
       id: 1,
-      title: "The Science of Everything",
+      title: "Agricultural Extension Education",
       author: "Dr. James Miller",
-      category: "Science",
+      category: "Agricultural Extension Education",
       price: 19.99,
       rating: 4.7,
       reviews: 325,
       cover:
-        "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=800&q=80",
+        "",
     },
     {
       id: 2,
-      title: "Romantic Tales",
-      author: "Sophia Lee",
-      category: "Romance",
-      price: 14.99,
-      rating: 4.5,
-      reviews: 210,
+      title: "Adult and Continuing Education and Extension",
+      author: "Dr. Emily Johnson",
+      category: "Adult and Continuing Education and Extension",
+      price: 24.99,
+      rating: 4.6,
+      reviews: 289,
       cover:
-        "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80",
-    },
-    {
-      id: 3,
-      title: "Mystery at Midnight",
-      author: "Oliver Stone",
-      category: "Mystery",
-      price: 17.99,
-      rating: 4.3,
-      reviews: 156,
-      cover:
-        "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&w=800&q=80",
+        "",
     },
   ];
 

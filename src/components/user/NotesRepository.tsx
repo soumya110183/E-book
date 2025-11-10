@@ -10,17 +10,11 @@ export function NotesRepository() {
   const [showPreview, setShowPreview] = useState(false);
   const [activeCategory, setActiveCategory] = useState('All');
 
-  const categories = ['All', 'Mathematics', 'Physics', 'Chemistry', 'Computer Science', 'Biology', 'Statistics'];
+  const categories = ['All', 'Agricultural Extension Education', 'Adult and Continuing Education and Extension'];
 
   const notes = [
-    { id: 1, title: 'Calculus Quick Reference', category: 'Mathematics', author: 'Prof. Smith', pages: 12, downloads: 2450, rating: 4.8, price: 'Free', featured: true },
-    { id: 2, title: 'Quantum Mechanics Notes', category: 'Physics', author: 'Dr. Johnson', pages: 25, downloads: 1890, rating: 4.9, price: '$4.99', featured: true },
-    { id: 3, title: 'Organic Chemistry Formulas', category: 'Chemistry', author: 'Dr. Williams', pages: 18, downloads: 3200, rating: 4.7, price: '$3.99', featured: false },
-    { id: 4, title: 'Data Structures Cheat Sheet', category: 'Computer Science', author: 'Prof. Lee', pages: 15, downloads: 4100, rating: 4.9, price: 'Free', featured: true },
-    { id: 5, title: 'Cell Biology Summary', category: 'Biology', author: 'Dr. Martinez', pages: 20, downloads: 1650, rating: 4.6, price: '$2.99', featured: false },
-    { id: 6, title: 'Statistical Methods Guide', category: 'Statistics', author: 'Prof. Chen', pages: 22, downloads: 2100, rating: 4.8, price: '$5.99', featured: false },
-    { id: 7, title: 'Linear Algebra Essentials', category: 'Mathematics', author: 'Dr. Brown', pages: 16, downloads: 2800, rating: 4.7, price: 'Free', featured: false },
-    { id: 8, title: 'Thermodynamics Notes', category: 'Physics', author: 'Prof. Davis', pages: 19, downloads: 1450, rating: 4.5, price: '$3.49', featured: false },
+    { id: 1, title: 'Agricultural Extension Education Notes', category: 'Agricultural Extension Education', author: 'Prof. Smith', pages: 12, downloads: 2450, rating: 4.8, price: 'Free', featured: true },
+    { id: 2, title: 'Adult and Continuing Education and Extension Notes', category: 'Adult and Continuing Education and Extension', author: 'Dr. Johnson', pages: 25, downloads: 1890, rating: 4.9, price: '₹150', featured: true }
   ];
 
   const handlePreview = (note: any) => {

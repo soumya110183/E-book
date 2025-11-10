@@ -8,7 +8,7 @@ export function PaymentsSubscriptions() {
   const plans = [
     {
       name: 'Monthly',
-      price: '$19.99',
+      price: '₹19.99',
       period: 'per month',
       features: [
         'Access to 1,000+ e-books',
@@ -21,7 +21,7 @@ export function PaymentsSubscriptions() {
     },
     {
       name: 'Annual',
-      price: '$199.99',
+      price: '₹199.99',
       period: 'per year',
       savings: 'Save $40',
       features: [
@@ -38,7 +38,7 @@ export function PaymentsSubscriptions() {
     },
     {
       name: 'Institutional',
-      price: '$499.99',
+      price: '₹499.99',
       period: 'per year',
       features: [
         'Everything in Annual',
@@ -54,10 +54,10 @@ export function PaymentsSubscriptions() {
   ];
 
   const transactions = [
-    { id: 1, date: '2024-03-01', description: 'Annual Subscription Renewal', amount: '$199.99', status: 'Completed', method: 'Visa •••• 4242' },
-    { id: 2, date: '2024-02-15', description: 'Research Paper - AI Ethics', amount: '$104.00', status: 'Completed', method: 'Mastercard •••• 8888' },
-    { id: 3, date: '2024-02-01', description: 'Organic Chemistry Notes', amount: '$3.99', status: 'Completed', method: 'Visa •••• 4242' },
-    { id: 4, date: '2024-01-20', description: 'Machine Learning E-book', amount: '$24.99', status: 'Completed', method: 'Visa •••• 4242' },
+    { id: 1, date: '2024-03-01', description: 'Annual Subscription Renewal', amount: '₹199.99', status: 'Completed', method: 'Visa •••• 4242' },
+    { id: 2, date: '2024-02-15', description: 'Research Paper - AI Ethics', amount: '₹104.00', status: 'Completed', method: 'Mastercard •••• 8888' },
+    { id: 3, date: '2024-02-01', description: 'Organic Chemistry Notes', amount: '₹3.99', status: 'Completed', method: 'Visa •••• 4242' },
+    { id: 4, date: '2024-01-20', description: 'Machine Learning E-book', amount: '₹24.99', status: 'Completed', method: 'Visa •••• 4242' },
   ];
 
   return (
@@ -85,7 +85,7 @@ export function PaymentsSubscriptions() {
                   <h3 className="text-[#1d4d6a] mb-1">Annual Subscription</h3>
                   <p className="text-sm text-gray-500 mb-4">Renews on April 1, 2025</p>
                   <div className="flex items-baseline gap-2">
-                    <span className="text-3xl text-[#1d4d6a]">$199.99</span>
+                    <span className="text-3xl text-[#1d4d6a]">₹199.99</span>
                     <span className="text-gray-500">per year</span>
                   </div>
                 </div>
