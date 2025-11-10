@@ -22,7 +22,8 @@ const HeroSection: React.FC<HeroProps> = ({ searchQuery, setSearchQuery }) => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by title, author, or subject..."
-              className="w-full pl-12 pr-4 py-4 rounded-lg text-gray-900 focus:ring-2 focus:ring-[#bf2026] focus:outline-none"
+              className="w-full pl-12 pr-4 py-4 rounded-lg text-gray-900 bg-white border border-gray-300"
+
             />
           </div>
         </div>

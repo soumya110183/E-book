@@ -161,7 +161,7 @@ export function PaymentsSubscriptions() {
                 {transactions.map((transaction) => (
                   <div key={transaction.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                     <div className="flex items-center gap-4 flex-1">
-                      <div className="w-12 h-12 bg-[#bf2026] bg-opacity-10 rounded-lg flex items-center justify-center">
+                      <div className="w-12 h-12  bg-opacity-10 rounded-lg flex items-center justify-center">
                         <CreditCard className="w-6 h-6 text-[#bf2026]" />
                       </div>
                       <div className="flex-1">
@@ -198,7 +198,7 @@ export function PaymentsSubscriptions() {
               <CardContent className="space-y-3">
                 <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-blue-500 bg-opacity-10 rounded-lg flex items-center justify-center">
+                    <div className="w-12 h-12  bg-opacity-10 rounded-lg flex items-center justify-center">
                       <CreditCard className="w-6 h-6 text-blue-500" />
                     </div>
                     <div>
@@ -214,7 +214,7 @@ export function PaymentsSubscriptions() {
 
                 <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-orange-500 bg-opacity-10 rounded-lg flex items-center justify-center">
+                    <div className="w-12 h-12  bg-opacity-10 rounded-lg flex items-center justify-center">
                       <CreditCard className="w-6 h-6 text-orange-500" />
                     </div>
                     <div>

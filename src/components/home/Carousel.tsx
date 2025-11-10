@@ -14,47 +14,68 @@ interface CarouselProps {
 
 export function Carousel({ onNavigate}: CarouselProps) {
   const featuredBooks = [
-    {
-      id: 1,
-      title: "Advanced Quantum Physics",
-      author: "Dr. Michael Chen",
-      category: "Physics",
-      cover:
-        "https://m.media-amazon.com/images/I/71+IiaX3FLL._SY425_.jpg",
-      rating: 4.8,
-      readers: 12500,
-    },
-    {
-      id: 2,
-      title: "Calculus & Analysis",
-      author: "Prof. Sarah Williams",
-      category: "Mathematics",
-      cover:
-        "https://images.unsplash.com/photo-1761546571631-a4d61b55cd2f?auto=format&fit=crop&w=500&q=80",
-      rating: 4.9,
-      readers: 18300,
-    },
-    {
-      id: 3,
-      title: "Modern Literature",
-      author: "Dr. Emily Roberts",
-      category: "Literature",
-      cover:
-        "https://images.unsplash.com/photo-1760120482171-d9d5468f75fd?auto=format&fit=crop&w=500&q=80",
-      rating: 4.7,
-      readers: 9800,
-    },
-    {
-      id: 4,
-      title: "Machine Learning Basics",
-      author: "Dr. Alan Turing",
-      category: "AI / Computer Science",
-      cover:
-        "https://images.unsplash.com/photo-1606813902913-0e26e8f63d49?auto=format&fit=crop&w=500&q=80",
-      rating: 4.6,
-      readers: 16400,
-    },
-  ];
+  {
+    id: 1,
+    title: "Agricultural Extension and Communication Management",
+    author: "Dr. S.V. Patel",
+    category: "Agricultural Extension Education",
+    cover:
+      "https://m.media-amazon.com/images/I/71V4D1R9LxL._SY425_.jpg",
+    rating: 4.8,
+    readers: 12400,
+  },
+  {
+    id: 2,
+    title: "Fundamentals of Agricultural Extension Education",
+    author: "Dr. R. Saravanan",
+    category: "Agricultural Extension Education",
+    cover:
+      "https://m.media-amazon.com/images/I/71UxLgP5SLL._SY425_.jpg",
+    rating: 4.7,
+    readers: 15600,
+  },
+  {
+    id: 3,
+    title: "Adult and Continuing Education: Principles and Practices",
+    author: "Dr. B. S. Bhatia",
+    category: "Adult and Continuing Education",
+    cover:
+      "https://m.media-amazon.com/images/I/61Vn2JwPiHL._SY425_.jpg",
+    rating: 4.6,
+    readers: 9800,
+  },
+  {
+    id: 4,
+    title: "Extension Education and Rural Development",
+    author: "Dr. A. K. Singh",
+    category: "Extension Education",
+    cover:
+      "https://m.media-amazon.com/images/I/71VwJbJHPrL._SY425_.jpg",
+    rating: 4.9,
+    readers: 17200,
+  },
+  {
+    id: 5,
+    title: "Methods and Techniques of Teaching in Extension",
+    author: "Dr. N. P. Singh",
+    category: "Agricultural Extension",
+    cover:
+      "https://m.media-amazon.com/images/I/71Kgn9N9ZRL._SY425_.jpg",
+    rating: 4.7,
+    readers: 10200,
+  },
+  {
+    id: 6,
+    title: "Adult Learning and Extension Strategies",
+    author: "Dr. R. K. Sharma",
+    category: "Adult and Continuing Education",
+    cover:
+      "https://m.media-amazon.com/images/I/71nZ2sHEkDL._SY425_.jpg",
+    rating: 4.8,
+    readers: 11300,
+  },
+];
+
 
   const [current, setCurrent] = useState(0);
 

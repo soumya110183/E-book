@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 
 const stats = [
-  { value: 10000, suffix: "+", label: "E-Books Available" },
-  { value: 50000, suffix: "+", label: "Active Users" },
-  { value: 150, suffix: "+", label: "Countries" },
-  { value: 98, suffix: "%", label: "Satisfaction Rate" },
+  { value: 12000, suffix: "+", label: "Registered Learners" },
+  { value: 350, suffix: "+", label: "Agricultural E-Books & Resources" },
+  { value: 95, suffix: "%", label: "Positive Learner Feedback" },
+  { value: 9, suffix: "+", label: "States Covered in India" },
 ];
+
 
 const AboutStats = () => (
   <section className="py-16 bg-white border-b border-gray-200">

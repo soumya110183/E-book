@@ -40,7 +40,7 @@ const PlanCard: React.FC<PlanCardProps> = ({ plan, billingCycle, onNavigate }) =
 
       <div className="mt-6">
         <span className="text-5xl text-[#1d4d6a]">
-          ${billingCycle === 'monthly' ? plan.monthlyPrice : plan.annualPrice}
+          ₹{billingCycle === 'monthly' ? plan.monthlyPrice : plan.annualPrice}
         </span>
         <span className="text-gray-500 ml-2">
           /{billingCycle === 'monthly' ? 'month' : 'year'}

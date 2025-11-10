@@ -7,8 +7,7 @@ const MissionSection = () => (
       <div>
         <h2 className="text-4xl text-[#1d4d6a] mb-6">Our Mission</h2>
         <p className="text-gray-700 mb-6">
-          At AcademicHub, we're committed to breaking down barriers to quality education. Our platform provides students, researchers, and lifelong learners with instant access to a vast library of academic resources, professional services, and learning tools.
-        </p>
+At FarmInk Forum, we’re dedicated to empowering agricultural students, educators, and rural communities through accessible, high-quality learning resources. Our platform offers a growing collection of e-books, research materials, and extension education tools — designed to support agricultural development, lifelong learning, and sustainable rural advancement across India.        </p>
         <p className="text-gray-700">
           We believe everyone deserves access to world-class educational materials, regardless of their location or economic background.
         </p>
