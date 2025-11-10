@@ -20,7 +20,7 @@ export function Carousel({ onNavigate}: CarouselProps) {
       author: "Dr. Michael Chen",
       category: "Physics",
       cover:
-        "https://images.unsplash.com/photo-1725870475677-7dc91efe9f93?auto=format&fit=crop&w=500&q=80",
+        "https://m.media-amazon.com/images/I/71+IiaX3FLL._SY425_.jpg",
       rating: 4.8,
       readers: 12500,
     },
@@ -116,7 +116,7 @@ export function Carousel({ onNavigate}: CarouselProps) {
             }}
             onClick={handleReadNow}
           >
-            <Card className="w-56 h-[280px] overflow-hidden bg-white backdrop-blur-md border border-white/20 shadow-2xl rounded-2xl">
+            <Card className="w-56 h-[350x] overflow-hidden bg-white backdrop-blur-md border border-white/20 shadow-2xl rounded-2xl">
               <div className="h-40 overflow-hidden rounded-t-lg">
   <ImageWithFallback
     src={book.cover}
@@ -126,7 +126,7 @@ export function Carousel({ onNavigate}: CarouselProps) {
 </div>
 
               <CardContent className="p-4 bg-white/90 text-gray-900">
-                <h3 className="font-semibold text-lg line-clamp-1">{book.title}</h3>
+                <h3 className="font-semibold text-lg line-clamp-1 -mt-8">{book.title}</h3>
                 <p className="text-sm text-gray-600 mb-2 line-clamp-1">
                   {book.author} • {book.category}
                 </p>

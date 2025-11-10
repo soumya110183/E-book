@@ -11,7 +11,7 @@ export function Navbar({ onNavigate }: NavbarProps) {
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => onNavigate('home')}>
             <BookOpen className="w-8 h-8 text-[#bf2026]" />
-            <span className="text-[#1d4d6a]">AcademicHub</span>
+            <span className="text-[#1d4d6a]">FarmInk Forum</span>
           </div>
           <div className="flex items-center gap-8">
             <button onClick={() => onNavigate('home')} className="text-gray-700 hover:text-[#bf2026] transition-colors">

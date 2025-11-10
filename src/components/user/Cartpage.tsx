@@ -18,6 +18,13 @@ export default function CartPage() {
             price: 9.99,
             image: "https://m.media-amazon.com/images/I/71g2ednj0JL.jpg",
         },
+        {
+    id: 3,
+    title: "Rich Dad Poor Dad",
+    author: "Robert T. Kiyosaki",
+    price: 10.99,
+    image: "https://m.media-amazon.com/images/I/81bsw6fnUiL.jpg",
+  },
     ]);
 
     // Remove from cart

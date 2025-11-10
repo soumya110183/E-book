@@ -14,12 +14,10 @@ export function Hero({ onNavigate, onOpenBook }: HeroProps) {
         {/* LEFT SIDE - TEXT CONTENT */}
         <div className="w-full  text-left space-y-6 md:pl-4">
           <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-            Explore Your{" "}
-            <span className="text-[#bf2026]">Next Academic Adventure</span>
+            From Reading to Results — Your Academic Companion
           </h1>
           <p className="text-gray-200 text-lg max-w-md">
-            Access thousands of curated e-books, journals, and learning
-            materials — designed to elevate your academic journey.
+            Read smartly, test your knowledge, and explore academic opportunities — all in one place.
           </p>
           <Button
             className="bg-[#bf2026] hover:bg-[#a01c22] text-white px-6 py-3 rounded-lg text-lg transition-all"

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import HeroSection from "./HeroSection";
 import CategoryFilter from "./CategorySection";
 import StatsBar from "./StatusBar";

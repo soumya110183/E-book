@@ -46,6 +46,8 @@ import { PaymentsSubscriptions } from "./user/PaymentsSubscriptions";
 import { ProfileSettings } from "./user/ProfileSettings";
 import NotificationView from "./user/NotificationView";
 import CartPage from "./user/Cartpage";
+import { FaReact, FaJsSquare, FaCss3Alt } from "react-icons/fa";
+
 
 interface UserDashboardProps {
   onNavigate: (page: string) => void;
@@ -78,9 +80,9 @@ export function UserDashboard({ onNavigate, onOpenBook, onLogout }: UserDashboar
   const cartRef = useRef<HTMLDivElement>(null);
 
   const [cartItems] = useState([
-    { id: 1, name: "React Course", price: 19.99, image: "https://via.placeholder.com/40" },
-    { id: 2, name: "JavaScript Guide", price: 9.99, image: "https://via.placeholder.com/40" },
-    { id: 3, name: "CSS Mastery", price: 14.99, image: "https://via.placeholder.com/40" },
+    { id: 1, name: "Atomic Habit", price: 12.99, image: "https://m.media-amazon.com/images/I/81bGKUa1e0L.jpg"},
+    { id: 2, name: "Deep Work", price: 9.99, image: "https://m.media-amazon.com/images/I/71g2ednj0JL.jpg"},
+    { id: 3, name: "Rich Dad Poor dad", price: 10.99, image: "https://m.media-amazon.com/images/I/81bsw6fnUiL.jpg"},
   ])
 
   const menuItems = [
@@ -166,8 +168,8 @@ export function UserDashboard({ onNavigate, onOpenBook, onLogout }: UserDashboar
                 setAvatarOpen(false); // 🔹 UPDATED
               }}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg mb-1 transition-all ${activeSection === item.id
-                  ? "bg-[#bf2026] text-white shadow-md"
-                  : "text-gray-700 hover:bg-gray-100"
+                ? "bg-[#bf2026] text-white shadow-md"
+                : "text-gray-700 hover:bg-gray-100"
                 }`}
               title={sidebarCollapsed ? item.label : undefined}
             >
