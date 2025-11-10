@@ -7,8 +7,8 @@ import { Textarea } from '../ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from '../ui/dialog';
 import { Label } from '../ui/label';
-import { Plus, Pencil, Trash2, Briefcase, MapPin, DollarSign, Building, Clock } from 'lucide-react';
-import { toast } from 'sonner@2.0.3';
+import { Plus, Pencil, Trash2, Briefcase, MapPin, IndianRupee, Building, Clock } from 'lucide-react';
+import { toast } from 'sonner';
 
 interface Job {
   id: number;
@@ -31,7 +31,7 @@ const initialJobs: Job[] = [
     location: 'Cambridge, MA',
     type: 'Full-time',
     level: 'Entry Level',
-    salary: '$45,000 - $55,000',
+    salary: '₹45,000 - ₹55,000',
     posted: '2 days ago',
     description: 'Seeking a research assistant to support ML projects in our AI lab.',
     requirements: ['Bachelor\'s in CS', 'Python proficiency', 'ML fundamentals']
@@ -43,7 +43,7 @@ const initialJobs: Job[] = [
     location: 'Berkeley, CA',
     type: 'Full-time',
     level: 'PhD',
-    salary: '$35,000 - $40,000',
+    salary: '₹35,000 - ₹40,000',
     posted: '1 week ago',
     description: 'Fully funded PhD position in quantum computing research.',
     requirements: ['Master\'s in Physics', 'Research experience', 'Strong mathematics']
@@ -55,7 +55,7 @@ const initialJobs: Job[] = [
     location: 'New York, NY',
     type: 'Part-time',
     level: 'Graduate',
-    salary: '$20/hour',
+    salary: '₹20/hour',
     posted: '3 days ago',
     description: 'TA position for undergraduate calculus courses.',
     requirements: ['Graduate student', 'Strong math background', 'Good communication']
@@ -67,7 +67,7 @@ const initialJobs: Job[] = [
     location: 'Remote',
     type: 'Internship',
     level: 'Undergraduate',
-    salary: '$15-$20/hour',
+    salary: '₹15-₹20/hour',
     posted: '5 days ago',
     description: 'Summer internship analyzing educational data.',
     requirements: ['Statistics knowledge', 'Excel/Python', 'Detail-oriented']
@@ -79,7 +79,7 @@ const initialJobs: Job[] = [
     location: 'Boston, MA',
     type: 'Full-time',
     level: 'Postdoc',
-    salary: '$55,000 - $65,000',
+    salary: '₹55,000 - ₹65,000',
     posted: '1 day ago',
     description: 'Postdoc position in cellular biology research.',
     requirements: ['PhD in Biology', '2+ publications', 'Lab experience']
@@ -91,7 +91,7 @@ const initialJobs: Job[] = [
     location: 'Remote',
     type: 'Contract',
     level: 'Mid-level',
-    salary: '$40-$60/hour',
+    salary: '₹40-₹60/hour',
     posted: '4 days ago',
     description: 'Write educational content for online courses.',
     requirements: ['Master\'s degree', 'Writing portfolio', 'Subject expertise']
@@ -336,7 +336,7 @@ export function JobPortalAdmin() {
                   id="salary"
                   value={formData.salary}
                   onChange={(e) => setFormData({ ...formData, salary: e.target.value })}
-                  placeholder="e.g., $45,000 - $55,000 or $20/hour"
+                  placeholder="e.g., ₹45,000 - ₹55,000 or ₹20/hour"
                 />
               </div>
 
@@ -478,7 +478,7 @@ export function JobPortalAdmin() {
                             <span>{job.location}</span>
                           </div>
                           <div className="flex items-center gap-1">
-                            <DollarSign className="w-4 h-4" />
+                            <IndianRupee className="w-4 h-4" />
                             <span>{job.salary}</span>
                           </div>
                         </div>

@@ -149,7 +149,7 @@ export function UserDashboard({ onNavigate, onOpenBook, onLogout }: UserDashboar
             <div>
               <div className="flex items-center gap-2 mb-1">
                 <BookOpen className="w-7 h-7 text-[#bf2026]" />
-                <span className="text-[#1d4d6a] font-medium">AcademicHub</span>
+                <span className="text-[#1d4d6a] font-medium">FarmInk Forum</span>
               </div>
               <p className="text-xs text-gray-500">Student Portal</p>
             </div>

@@ -38,7 +38,7 @@ export function ReportsAnalytics() {
               <YAxis stroke="#6b7280" />
               <Tooltip />
               <Legend />
-              <Line type="monotone" dataKey="revenue" stroke="#bf2026" strokeWidth={2} name="Revenue ($)" />
+              <Line type="monotone" dataKey="revenue" stroke="#bf2026" strokeWidth={2} name="Revenue (₹)" />
               <Line type="monotone" dataKey="users" stroke="#1d4d6a" strokeWidth={2} name="New Users" />
             </LineChart>
           </ResponsiveContainer>

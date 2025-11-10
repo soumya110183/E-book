@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../ui/card';
-import { Users, BookOpen, DollarSign, TrendingUp, ArrowUp, ArrowDown } from 'lucide-react';
+import { Users, BookOpen, DollarSign, TrendingUp, ArrowUp, ArrowDown, IndianRupee } from 'lucide-react';
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 export function AdminDashboardHome() {
@@ -8,7 +8,7 @@ export function AdminDashboardHome() {
     { label: 'Total Users', value: '12,453', change: '+12.5%', trend: 'up', icon: Users, color: 'bg-blue-500' },
     { label: 'Active Subscriptions', value: '8,234', change: '+8.3%', trend: 'up', icon: TrendingUp, color: 'bg-green-500' },
     { label: 'Books Sold', value: '24,567', change: '+15.7%', trend: 'up', icon: BookOpen, color: 'bg-purple-500' },
-    { label: 'Revenue (MTD)', value: '$145,890', change: '+18.2%', trend: 'up', icon: DollarSign, color: 'bg-[#bf2026]' },
+    { label: 'Revenue (MTD)', value: '₹145,890', change: '+18.2%', trend: 'up', icon: IndianRupee, color: 'bg-[#bf2026]' },
   ];
 
   const salesData = [
@@ -78,7 +78,7 @@ export function AdminDashboardHome() {
                 <YAxis yAxisId="right" orientation="right" stroke="#6b7280" />
                 <Tooltip />
                 <Legend />
-                <Line yAxisId="left" type="monotone" dataKey="revenue" stroke="#bf2026" strokeWidth={2} name="Revenue ($)" />
+                <Line yAxisId="left" type="monotone" dataKey="revenue" stroke="#bf2026" strokeWidth={2} name="Revenue (₹)" />
                 <Line yAxisId="right" type="monotone" dataKey="users" stroke="#1d4d6a" strokeWidth={2} name="New Users" />
               </LineChart>
             </ResponsiveContainer>

@@ -86,7 +86,7 @@ export function AdminDashboard({ onNavigate, onLogout }: AdminDashboardProps) {
                 <Shield className="w-7 h-7 text-[#bf2026]" />
                 <span>Admin Panel</span>
               </div>
-              <p className="text-xs text-gray-300">AcademicHub</p>
+              <p className="text-xs text-gray-300">FarmInk Forum</p>
             </>
           )}
           {sidebarCollapsed && (

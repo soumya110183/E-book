@@ -8,11 +8,11 @@ import { Search, Filter, MoreVertical, Mail, Ban, CheckCircle } from 'lucide-rea
 
 export function CustomerManagement() {
   const customers = [
-    { id: 1, name: 'Alex Rodriguez', email: 'alex.r@email.com', plan: 'Annual', status: 'Active', joined: '2024-01-15', spent: '$199.99' },
-    { id: 2, name: 'Sarah Johnson', email: 'sarah.j@email.com', plan: 'Monthly', status: 'Active', joined: '2024-02-20', spent: '$59.97' },
-    { id: 3, name: 'Michael Chen', email: 'michael.c@email.com', plan: 'Annual', status: 'Active', joined: '2023-11-10', spent: '$399.98' },
-    { id: 4, name: 'Emily Davis', email: 'emily.d@email.com', plan: 'Monthly', status: 'Suspended', joined: '2024-03-05', spent: '$19.99' },
-    { id: 5, name: 'David Lee', email: 'david.l@email.com', plan: 'Institutional', status: 'Active', joined: '2023-09-01', spent: '$1,499.97' },
+    { id: 1, name: 'Alex Rodriguez', email: 'alex.r@email.com', plan: 'Annual', status: 'Active', joined: '2024-01-15', spent: '₹199.99' },
+    { id: 2, name: 'Sarah Johnson', email: 'sarah.j@email.com', plan: 'Monthly', status: 'Active', joined: '2024-02-20', spent: '₹59.97' },
+    { id: 3, name: 'Michael Chen', email: 'michael.c@email.com', plan: 'Annual', status: 'Active', joined: '2023-11-10', spent: '₹399.98' },
+    { id: 4, name: 'Emily Davis', email: 'emily.d@email.com', plan: 'Monthly', status: 'Suspended', joined: '2024-03-05', spent: '₹19.99' },
+    { id: 5, name: 'David Lee', email: 'david.l@email.com', plan: 'Institutional', status: 'Active', joined: '2023-09-01', spent: '₹1499.97' },
   ];
 
   return (

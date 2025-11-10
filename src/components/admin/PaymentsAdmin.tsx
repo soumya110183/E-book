@@ -1,21 +1,21 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../ui/card';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
-import { DollarSign, TrendingUp, CreditCard, Download } from 'lucide-react';
+import { DollarSign, TrendingUp, CreditCard, Download, IndianRupee } from 'lucide-react';
 
 export function PaymentsAdmin() {
   const stats = [
-    { label: 'Total Revenue', value: '$145,890', change: '+18.2%', icon: DollarSign },
-    { label: 'This Month', value: '$45,230', change: '+12.5%', icon: TrendingUp },
-    { label: 'Subscriptions', value: '$98,450', change: '+15.3%', icon: CreditCard },
-    { label: 'One-time Sales', value: '$47,440', change: '+22.1%', icon: DollarSign },
+    { label: 'Total Revenue', value: '₹145,890', change: '+18.2%', icon: IndianRupee },
+    { label: 'This Month', value: '₹45,230', change: '+12.5%', icon: TrendingUp },
+    { label: 'Subscriptions', value: '₹98,450', change: '+15.3%', icon: CreditCard },
+    { label: 'One-time Sales', value: '₹47,440', change: '+22.1%', icon: IndianRupee },
   ];
 
   const transactions = [
-    { id: 'TXN-1234', user: 'Alex Rodriguez', type: 'Subscription', amount: '$199.99', status: 'Completed', date: '2024-03-20' },
-    { id: 'TXN-1235', user: 'Sarah Johnson', type: 'E-book', amount: '$24.99', status: 'Completed', date: '2024-03-20' },
-    { id: 'TXN-1236', user: 'Michael Chen', type: 'Writing Service', amount: '$104.00', status: 'Pending', date: '2024-03-20' },
-    { id: 'TXN-1237', user: 'Emily Davis', type: 'Subscription', amount: '$19.99', status: 'Failed', date: '2024-03-19' },
+    { id: 'TXN-1234', user: 'Alex Rodriguez', type: 'Subscription', amount: '₹199.99', status: 'Completed', date: '2024-03-20' },
+    { id: 'TXN-1235', user: 'Sarah Johnson', type: 'E-book', amount: '₹24.99', status: 'Completed', date: '2024-03-20' },
+    { id: 'TXN-1236', user: 'Michael Chen', type: 'Writing Service', amount: '₹104.00', status: 'Pending', date: '2024-03-20' },
+    { id: 'TXN-1237', user: 'Emily Davis', type: 'Subscription', amount: '₹19.99', status: 'Failed', date: '2024-03-19' },
   ];
 
   return (
