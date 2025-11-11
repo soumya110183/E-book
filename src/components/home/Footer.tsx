@@ -7,7 +7,7 @@ interface FooterProps {
 
 export function Footer({ onNavigate }: FooterProps) {
   return (
-    <footer className="relative bg-[#1d4d6a] text-white py-16">
+    <footer className="relative bg-[#1d4d6a] text-white py-10">
       {/* Decorative gradient overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.1),transparent_70%)] pointer-events-none"></div>
 
@@ -15,10 +15,13 @@ export function Footer({ onNavigate }: FooterProps) {
         {/* Grid layout */}
         <div className="grid md:grid-cols-4 gap-10 mb-10">
           {/* Brand Section */}
-          <div>
-            <div className="flex items-center gap-2 mb-5">
-              <img src="/FarmInkForum.ico" alt="FarmInk Forum Logo" className="w-10 h-10 rounded-sm" />
-              <span className="text-xl font-semibold">FarmInk Forum</span>
+          <div className="text-center">
+            <div className="flex justify-center mb-3">
+              <img
+                src="/logoIcon.ico"
+                alt="FarmInk Forum Logo"
+                className="w-20 h-20 object-cover"
+              />
             </div>
             <p className="text-gray-300 text-sm leading-relaxed">
               Your trusted platform for academic excellence and continuous learning.

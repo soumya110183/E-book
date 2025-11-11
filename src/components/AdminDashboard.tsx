@@ -93,27 +93,15 @@ export function AdminDashboard({ onNavigate, onLogout }: AdminDashboardProps) {
       <aside
         className={`${sidebarCollapsed ? 'w-20' : 'w-64'} bg-[#1d4d6a] text-white fixed h-screen flex flex-col transition-all duration-300`}
       >
-        <div className="p-6 border-b border-[#2a5f7f]">
-          {!sidebarCollapsed && (
-            <>
-              <div className="flex items-center gap-2 mb-1">
-                <div className="flex flex-col items-center">
-                  <img
-                    src="/FarmInkForum.ico"
-                    alt="FarmInk Forum Logo"
-                    className="w-9 h-9 rounded-sm object-cover"
-                  />
-                </div>
-                <div className="flex flex-col leading-tight">
-                  <span className="text-white font-medium">Admin Panel</span>
-                  <p className="text-xs text-gray-300">FarmInk Forum</p>
-                </div>
-              </div>
+<div className="p-6 border-b border-[#2a5f7f] flex items-center justify-center">
+  {!sidebarCollapsed && (
+    <div className="flex flex-col items-center leading-tight text-center">
+      <span className="text-white font-medium">Admin Panel</span>
+      <p className="text-xs text-gray-300">FarmInk Forum</p>
+    </div>
+  )}
+</div>
 
-            </>
-          )}
-          {sidebarCollapsed && <Shield className="w-7 h-7 text-[#bf2026] mx-auto" />}
-        </div>
 
         <div className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-transparent">
           <nav className="p-4">

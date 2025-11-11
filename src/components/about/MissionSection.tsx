@@ -16,7 +16,7 @@ By providing focused study materials, smart mock tests, and expert guidance, we 
       </div>
       <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
         <ImageWithFallback
-          src="https://images.unsplash.com/photo-1544132998-ae26c2655274?auto=format&fit=crop&w=1080&q=80"
+          src="/Books1.webp"
           alt="Library"
           className="w-full h-full object-cover"
         />

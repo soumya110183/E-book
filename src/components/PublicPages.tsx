@@ -49,13 +49,13 @@ function LoginPage({ onNavigate, onLogin }: { onNavigate: (page: string) => void
     <div className="min-h-[80vh] flex items-center justify-center py-6  px-6 bg-[#f5f6f8]">
       <Card className="w-full max-w-md border-none shadow-xl">
         <CardHeader className="text-center">
-          <div className="w-16 h-16 bg-opacity-10 rounded-sm flex items-center justify-center mx-auto mb-4">
+          {/* <div className="w-16 h-16 bg-opacity-10 rounded-sm flex items-center justify-center mx-auto mb-4">
             <img
-              src="/FarmInkForum.ico"
+              src="/logoIcon.ico"
               alt="FarmInk Forum Logo"
-              className="w-12 h-12 rounded-sm object-cover"
+              className="w-20 h-20 object-cover"
             />
-          </div>
+          </div> */}
 
           <CardTitle className="text-[#1d4d6a]">Welcome Back</CardTitle>
           <CardDescription>Sign in to access your academic resources</CardDescription>
@@ -124,13 +124,13 @@ function RegisterPage({ onNavigate }: { onNavigate: (page: string) => void }) {
     <div className="min-h-[80vh] flex items-center justify-center px-6 py-12 bg-[#f5f6f8]">
       <Card className="w-full max-w-md border-none shadow-xl">
         <CardHeader className="text-center">
-          <div className="w-16 h-16 bg-opacity-10 rounded-sm flex items-center justify-center mx-auto mb-4">
+          {/* <div className="bg-gray-500 border border-gray-300 rounded-sm flex items-center justify-center mb-4 mx-auto p-2">
             <img
-              src="/FarmInkForum.ico"
+              src="/logoIcon.ico"
               alt="FarmInk Forum Logo"
-              className="w-12 h-12 rounded-sm object-cover"
+              className="w-20 h-20 object-cover"
             />
-          </div>
+          </div> */}
 
           <CardTitle className="text-[#1d4d6a]">Create Your Account</CardTitle>
           <CardDescription>Join thousands of learners worldwide</CardDescription>

@@ -7,35 +7,50 @@ interface NavbarProps {
 
 export function Navbar({ onNavigate }: NavbarProps) {
   return (
-    <nav className="border-b border-gray-200 bg-white/80 backdrop-blur-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <nav className="bg-gray-500 backdrop-blur-md px-25 sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto flex items-center justify-between">
+        {/* Left: Logo */}
         <div
           className="flex items-center gap-2 cursor-pointer"
           onClick={() => onNavigate('home')}
         >
           <img
-            src="/FarmInkForum.ico"
+            src="/logoIcon.ico"
             alt="FarmInk Forum Logo"
-            className="w-15 h-15 rounded-sm object-cover"
+            className="w-20 h-20 object-cover mt-2"
           />
-          {/* <BookOpen className="w-7 h-7 text-[#bf2026]" /> */}
-          <span className="text-[#1d4d6a]">FarmInk Forum</span>
         </div>
 
-        <div className="flex items-center gap-8">
-          <button onClick={() => onNavigate('home')} className="text-gray-700 hover:text-[#bf2026] transition-colors">
+        {/* Right: Navigation Links */}
+        <div className="flex items-center gap-6">
+          <button
+            onClick={() => onNavigate('home')}
+            className="text-white hover:text-[#bf2026] transition-colors"
+          >
             Home
           </button>
-          <button onClick={() => onNavigate('explore')} className="text-gray-700 hover:text-[#bf2026] transition-colors">
+          <button
+            onClick={() => onNavigate('explore')}
+            className="text-white hover:text-[#bf2026] transition-colors"
+          >
             Explore
           </button>
-          <button onClick={() => onNavigate('pricing')} className="text-gray-700 hover:text-[#bf2026] transition-colors">
+          <button
+            onClick={() => onNavigate('pricing')}
+            className="text-white hover:text-[#bf2026] transition-colors"
+          >
             Pricing
           </button>
-          <button onClick={() => onNavigate('about')} className="text-gray-700 hover:text-[#bf2026] transition-colors">
+          <button
+            onClick={() => onNavigate('about')}
+            className="text-white hover:text-[#bf2026] transition-colors"
+          >
             About
           </button>
-          <button onClick={() => onNavigate('contact')} className="text-gray-700 hover:text-[#bf2026] transition-colors">
+          <button
+            onClick={() => onNavigate('contact')}
+            className="text-white hover:text-[#bf2026] transition-colors"
+          >
             Contact
           </button>
           <Button
@@ -47,5 +62,6 @@ export function Navbar({ onNavigate }: NavbarProps) {
         </div>
       </div>
     </nav>
+
   );
 }
