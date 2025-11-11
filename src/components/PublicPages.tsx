@@ -126,7 +126,7 @@ function RegisterPage({ onNavigate }: { onNavigate: (page: string) => void }) {
         <CardHeader className="text-center">
           <div className="w-16 h-16 bg-opacity-10 rounded-sm flex items-center justify-center mx-auto mb-4">
             <img
-              src="src\assets\logo\FarmInkForum.ico"
+              src="..\assets\logo\FarmInkForum.ico"
               alt="FarmInk Forum Logo"
               className="w-12 h-12 rounded-sm object-cover"
             />

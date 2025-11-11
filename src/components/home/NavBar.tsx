@@ -14,7 +14,7 @@ export function Navbar({ onNavigate }: NavbarProps) {
           onClick={() => onNavigate('home')}
         >
           <img
-            src="src\assets\logo\FarmInkForum.ico"
+            src="src\assets\logo\farminkforum.ico"
             alt="FarmInk Forum Logo"
             className="w-10 h-10 rounded-sm object-cover"
           />
