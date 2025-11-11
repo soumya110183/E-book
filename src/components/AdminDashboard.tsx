@@ -99,7 +99,7 @@ export function AdminDashboard({ onNavigate, onLogout }: AdminDashboardProps) {
               <div className="flex items-center gap-2 mb-1">
                 <div className="flex flex-col items-center">
                   <img
-                    src="src/assets/logo/FarmInkForum.jpeg"
+                    src="/FarmInkForum.ico"
                     alt="FarmInk Forum Logo"
                     className="w-9 h-9 rounded-sm object-cover"
                   />
@@ -220,7 +220,7 @@ export function AdminDashboard({ onNavigate, onLogout }: AdminDashboardProps) {
                 >
                   <Avatar className="w-8 h-8 ring-2 ring-gray-300 rounded-sm">
                     <img
-                      src="src/assets/logo/FarmInkForum.jpeg"
+                      src="/FarmInkForum.ico"
                       alt="Admin Avatar"
                       className="w-9 h-9 rounded-sm object-cover"
                     />
