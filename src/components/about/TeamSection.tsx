@@ -5,7 +5,7 @@ const author = {
   name: "Your Name",
   role: "Founder & Author",
   image:
-    "https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&w=1080&q=80", // replace with your photo
+    "", // replace with your photo
   intro:
     "Dedicated to promoting agricultural education and lifelong learning. With a strong passion for rural development and community empowerment, I aim to make knowledge accessible for students, educators, and farmers across India through practical, research-based learning resources.",
 };

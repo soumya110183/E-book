@@ -16,7 +16,7 @@ export function Navbar({ onNavigate }: NavbarProps) {
           <img
             src="/FarmInkForum.ico"
             alt="FarmInk Forum Logo"
-            className="w-10 h-10 rounded-sm object-cover"
+            className="w-15 h-15 rounded-sm object-cover"
           />
           {/* <BookOpen className="w-7 h-7 text-[#bf2026]" /> */}
           <span className="text-[#1d4d6a]">FarmInk Forum</span>
