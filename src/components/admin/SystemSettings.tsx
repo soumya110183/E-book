@@ -30,26 +30,25 @@ export function SystemSettings() {
             <CardContent className="space-y-4">
               <div>
                 <Label>Platform Name</Label>
-                <Input defaultValue="AcademicHub" />
+                <Input defaultValue="FarmInk Forum" />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Label>Support Email</Label>
-                  <Input defaultValue="support@academichub.com" />
+                  <Input defaultValue="support@farminckforum.com" />
                 </div>
                 <div>
                   <Label>Contact Phone</Label>
-                  <Input defaultValue="+1 (555) 123-4567" />
+                  <Input defaultValue="+91-9876-543210" />
                 </div>
               </div>
               <div>
                 <Label>Default Currency</Label>
                 <select className="w-full px-3 py-2 border border-gray-200 rounded-lg">
-                  <option>USD ($)</option>
-                  <option>EUR (€)</option>
-                  <option>GBP (£)</option>
+                  <option>INR (₹)</option>
                 </select>
               </div>
+
               <Button className="bg-[#bf2026] hover:bg-[#a01c22] text-white">
                 Save Changes
               </Button>

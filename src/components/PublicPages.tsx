@@ -34,7 +34,7 @@ export function PublicPages({ page, onNavigate, onLogin }: PublicPagesProps) {
       {/* Footer */}
       <Footer onNavigate={onNavigate} />
 
-     
+
     </div>
   );
 }
@@ -49,9 +49,14 @@ function LoginPage({ onNavigate, onLogin }: { onNavigate: (page: string) => void
     <div className="min-h-[80vh] flex items-center justify-center py-6  px-6 bg-[#f5f6f8]">
       <Card className="w-full max-w-md border-none shadow-xl">
         <CardHeader className="text-center">
-          <div className="w-16 h-16  bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <BookOpen className="w-8 h-8 text-[#bf2026]" />
+          <div className="w-16 h-16 bg-opacity-10 rounded-sm flex items-center justify-center mx-auto mb-4">
+            <img
+              src="src/assets/logo/FarmInkForum.jpeg"
+              alt="FarmInk Forum Logo"
+              className="w-12 h-12 rounded-sm object-cover"
+            />
           </div>
+
           <CardTitle className="text-[#1d4d6a]">Welcome Back</CardTitle>
           <CardDescription>Sign in to access your academic resources</CardDescription>
         </CardHeader>
@@ -71,13 +76,13 @@ function LoginPage({ onNavigate, onLogin }: { onNavigate: (page: string) => void
             </label>
             <button className="text-[#bf2026] hover:underline">Forgot password?</button>
           </div>
-          <Button 
+          <Button
             onClick={() => onLogin?.('user')}
             className="w-full bg-[#bf2026] hover:bg-[#a01c22] text-white"
           >
             Sign In as Student
           </Button>
-          <Button 
+          <Button
             onClick={() => onLogin?.('admin')}
             variant="outline"
             className="w-full border-[#1d4d6a] text-[#1d4d6a] hover:bg-[#1d4d6a] hover:text-white"

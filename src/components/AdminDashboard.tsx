@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { 
+import {
   LayoutDashboard,
   Users,
   BookOpen,
@@ -15,7 +15,7 @@ import {
   Briefcase,
 } from 'lucide-react';
 import { Button } from './ui/button';
-import { Avatar, AvatarFallback } from './ui/avatar';
+import { Avatar } from './ui/avatar';
 import { AdminDashboardHome } from './admin/AdminDashboardHome';
 import { CustomerManagement } from './admin/CustomerManagement';
 import { ContentManagement } from './admin/ContentManagement';
@@ -26,27 +26,40 @@ import { AIAutomation } from './admin/AIAutomation';
 import { NotificationsAdmin } from './admin/NotificationsAdmin';
 import { SystemSettings } from './admin/SystemSettings';
 import { JobPortalAdmin } from './admin/JobPortalAdmin';
+import WritingService from './admin/WritingService';
 
 interface AdminDashboardProps {
   onNavigate: (page: string) => void;
   onLogout: () => void;
 }
 
-type AdminSection = 'dashboard' | 'customers' | 'content' | 'drm' | 'payments' | 'reports' | 'ai' | 'notifications' | 'jobs' | 'settings';
+type AdminSection =
+  | 'dashboard'
+  | 'customers'
+  | 'content'
+  | 'drm'
+  | 'writing'
+  | 'payments'
+  | 'reports'
+  | 'ai'
+  | 'notifications'
+  | 'jobs'
+  | 'settings';
 
 export function AdminDashboard({ onNavigate, onLogout }: AdminDashboardProps) {
   const [activeSection, setActiveSection] = useState<AdminSection>('dashboard');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement|null>(null);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
   const [avataropen, setAvatarOpen] = useState(false);
-  const avatarRef = useRef<HTMLDivElement|null>(null);
+  const avatarRef = useRef<HTMLDivElement | null>(null);
 
   const menuItems = [
     { id: 'dashboard' as AdminSection, icon: LayoutDashboard, label: 'Dashboard' },
     { id: 'customers' as AdminSection, icon: Users, label: 'Customers' },
     { id: 'content' as AdminSection, icon: BookOpen, label: 'Content' },
     { id: 'drm' as AdminSection, icon: Shield, label: 'DRM Controls' },
+    { id: 'writing' as AdminSection, icon: FileText, label: 'Writing Services' },
     { id: 'payments' as AdminSection, icon: CreditCard, label: 'Payments' },
     { id: 'reports' as AdminSection, icon: FileText, label: 'Reports' },
     { id: 'ai' as AdminSection, icon: Cpu, label: 'AI Automation' },
@@ -54,13 +67,13 @@ export function AdminDashboard({ onNavigate, onLogout }: AdminDashboardProps) {
     { id: 'jobs' as AdminSection, icon: Briefcase, label: 'Job Portal' },
     { id: 'settings' as AdminSection, icon: Settings, label: 'Settings' },
   ];
+
   const notifications = [
     { id: 1, message: 'New user registered: Jane Doe', time: '2 mins ago' },
     { id: 2, message: 'Subscription renewed: John Smith', time: '10 mins ago' },
     { id: 3, message: 'New content uploaded: "Advanced Mathematics"', time: '1 hour ago' },
   ];
 
-  // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -74,45 +87,56 @@ export function AdminDashboard({ onNavigate, onLogout }: AdminDashboardProps) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-
   return (
     <div className="min-h-screen bg-[#f5f6f8] flex">
       {/* Sidebar */}
-      <aside className={`${sidebarCollapsed ? 'w-20' : 'w-64'} bg-[#1d4d6a] text-white fixed h-screen overflow-y-auto transition-all duration-300`}>
+      <aside
+        className={`${sidebarCollapsed ? 'w-20' : 'w-64'} bg-[#1d4d6a] text-white fixed h-screen flex flex-col transition-all duration-300`}
+      >
         <div className="p-6 border-b border-[#2a5f7f]">
           {!sidebarCollapsed && (
             <>
               <div className="flex items-center gap-2 mb-1">
-                <Shield className="w-7 h-7 text-[#bf2026]" />
-                <span>Admin Panel</span>
+                <div className="flex flex-col items-center">
+                  <img
+                    src="src/assets/logo/FarmInkForum.jpeg"
+                    alt="FarmInk Forum Logo"
+                    className="w-9 h-9 rounded-sm object-cover"
+                  />
+                </div>
+                <div className="flex flex-col leading-tight">
+                  <span className="text-white font-medium">Admin Panel</span>
+                  <p className="text-xs text-gray-300">FarmInk Forum</p>
+                </div>
               </div>
-              <p className="text-xs text-gray-300">FarmInk Forum</p>
+
             </>
           )}
-          {sidebarCollapsed && (
-            <Shield className="w-7 h-7 text-[#bf2026] mx-auto" />
-          )}
+          {sidebarCollapsed && <Shield className="w-7 h-7 text-[#bf2026] mx-auto" />}
         </div>
 
-        <nav className="p-4">
-          {menuItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => setActiveSection(item.id)}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg mb-1 transition-all group ${
-                activeSection === item.id
+        <div className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-transparent">
+          <nav className="p-4">
+            {menuItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => setActiveSection(item.id)}
+                className={`w-full flex items-center ${sidebarCollapsed ? 'justify-center px-2 py-3' : 'gap-3 px-4 py-3'} rounded-lg mb-1 transition-all group ${activeSection === item.id
                   ? 'bg-[#bf2026] text-white shadow-lg shadow-[#bf2026]/20'
                   : 'text-gray-300 hover:bg-[#2a5f7f] hover:text-white'
-              }`}
-              title={sidebarCollapsed ? item.label : undefined}
-            >
-              <item.icon className={`w-5 h-5 ${activeSection === item.id ? 'text-white' : 'group-hover:text-[#bf2026]'}`} />
-              {!sidebarCollapsed && <span className="text-sm">{item.label}</span>}
-            </button>
-          ))}
-        </nav>
+                  }`}
+                title={sidebarCollapsed ? item.label : undefined}
+              >
+                <item.icon
+                  className={`transition-all duration-200 ${sidebarCollapsed ? 'w-6 h-6' : 'w-5 h-5'} ${activeSection === item.id ? 'text-white' : 'group-hover:text-[#bf2026]'}`}
+                />
+                {!sidebarCollapsed && <span className="text-sm">{item.label}</span>}
+              </button>
+            ))}
+          </nav>
+        </div>
 
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-[#2a5f7f]">
+        <div className="p-4 border-t border-[#2a5f7f] sticky bottom-0 bg-[#1d4d6a]">
           <button
             onClick={onLogout}
             className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-[#2a5f7f] hover:text-white transition-all"
@@ -130,16 +154,12 @@ export function AdminDashboard({ onNavigate, onLogout }: AdminDashboardProps) {
         <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
           <div className="px-8 py-4 flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <Button
-                onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-                variant="ghost"
-                size="sm"
-              >
+              <Button onClick={() => setSidebarCollapsed(!sidebarCollapsed)} variant="ghost" size="sm">
                 <Menu className="w-5 h-5" />
               </Button>
               <div>
                 <h1 className="text-[#1d4d6a] mb-1">
-                  {menuItems.find(item => item.id === activeSection)?.label}
+                  {menuItems.find((item) => item.id === activeSection)?.label}
                 </h1>
                 <p className="text-sm text-gray-500">Manage your platform</p>
               </div>
@@ -156,12 +176,12 @@ export function AdminDashboard({ onNavigate, onLogout }: AdminDashboardProps) {
 
               {/* Notification Dropdown */}
               <div className="relative" ref={dropdownRef}>
-                <button 
+                <button
                   className="relative p-2 hover:bg-gray-100 rounded-lg"
                   onClick={() => setDropdownOpen(!dropdownOpen)}
                 >
                   <Bell className="w-5 h-5 text-gray-600" />
-                  {notifications.length > 0 &&(
+                  {notifications.length > 0 && (
                     <span className="absolute top-1 right-1 w-2 h-2 bg-[#bf2026] rounded-full"></span>
                   )}
                 </button>
@@ -173,10 +193,7 @@ export function AdminDashboard({ onNavigate, onLogout }: AdminDashboardProps) {
                     <ul className="max-h-60 overflow-y-auto">
                       {notifications.length > 0 ? (
                         notifications.map((n) => (
-                          <li
-                            key={n.id}
-                            className="px-3 py-2 text-sm text-gray-600 hover:bg-gray-50"
-                          >
+                          <li key={n.id} className="px-3 py-2 text-sm text-gray-600 hover:bg-gray-50">
                             {n.message}
                           </li>
                         ))
@@ -201,21 +218,25 @@ export function AdminDashboard({ onNavigate, onLogout }: AdminDashboardProps) {
                   className="relative p-1 hover:bg-gray-100 rounded-full"
                   onClick={() => setAvatarOpen(!avataropen)}
                 >
-                  <Avatar className="w-8 h-8">
-                    <AvatarFallback className='bg-gray-200'>AD</AvatarFallback>
+                  <Avatar className="w-8 h-8 ring-2 ring-gray-300 rounded-sm">
+                    <img
+                      src="src/assets/logo/FarmInkForum.jpeg"
+                      alt="Admin Avatar"
+                      className="w-9 h-9 rounded-sm object-cover"
+                    />
                   </Avatar>
                 </button>
                 {avataropen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-xl border border-gray-100 z-50">
                     <div className="p-4 border-b border-gray-200">
                       <p className="text-sm font-medium text-gray-700">Admin</p>
-                      <p className="text-xs text-gray-400">admin@academichub.com</p>
+                      <p className="text-xs text-gray-400">admin@FarmInkForum.com</p>
                     </div>
                     <ul className="py-2">
                       <li>
                         <button
                           className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-600 hover:bg-gray-50"
-                          onClick={() => setActiveSection("settings")}
+                          onClick={() => setActiveSection('settings')}
                         >
                           <Settings className="w-4 h-4" /> Settings
                         </button>
@@ -242,6 +263,7 @@ export function AdminDashboard({ onNavigate, onLogout }: AdminDashboardProps) {
           {activeSection === 'customers' && <CustomerManagement />}
           {activeSection === 'content' && <ContentManagement />}
           {activeSection === 'drm' && <DRMControls />}
+          {activeSection === 'writing' && <WritingService />}
           {activeSection === 'payments' && <PaymentsAdmin />}
           {activeSection === 'reports' && <ReportsAnalytics />}
           {activeSection === 'ai' && <AIAutomation />}
