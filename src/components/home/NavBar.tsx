@@ -14,10 +14,11 @@ export function Navbar({ onNavigate }: NavbarProps) {
           onClick={() => onNavigate('home')}
         >
           <img
-            src="src/assets/logo/FarmInkForum.jpeg"
+            src="src\assets\logo\FarmInkForum.ico"
             alt="FarmInk Forum Logo"
             className="w-10 h-10 rounded-sm object-cover"
           />
+          {/* <BookOpen className="w-7 h-7 text-[#bf2026]" /> */}
           <span className="text-[#1d4d6a]">FarmInk Forum</span>
         </div>
 

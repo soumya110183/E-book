@@ -17,7 +17,7 @@ export function Footer({ onNavigate }: FooterProps) {
           {/* Brand Section */}
           <div>
             <div className="flex items-center gap-2 mb-5">
-              <BookOpen className="w-7 h-7 text-[#bf2026]" />
+              <img src="src\assets\logo\FarmInkForum.ico" alt="FarmInk Forum Logo" className="w-10 h-10 rounded-sm" />
               <span className="text-xl font-semibold">FarmInk Forum</span>
             </div>
             <p className="text-gray-300 text-sm leading-relaxed">
