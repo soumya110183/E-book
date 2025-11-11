@@ -51,7 +51,7 @@ function LoginPage({ onNavigate, onLogin }: { onNavigate: (page: string) => void
         <CardHeader className="text-center">
           <div className="w-16 h-16 bg-opacity-10 rounded-sm flex items-center justify-center mx-auto mb-4">
             <img
-              src="src/assets/logo/FarmInkForum.jpeg"
+              src="/logo/FarmInkForum.jpeg"
               alt="FarmInk Forum Logo"
               className="w-12 h-12 rounded-sm object-cover"
             />
@@ -124,9 +124,14 @@ function RegisterPage({ onNavigate }: { onNavigate: (page: string) => void }) {
     <div className="min-h-[80vh] flex items-center justify-center px-6 py-12 bg-[#f5f6f8]">
       <Card className="w-full max-w-md border-none shadow-xl">
         <CardHeader className="text-center">
-          <div className="w-16 h-16  bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <BookOpen className="w-8 h-8 text-[#bf2026]" />
+          <div className="w-16 h-16 bg-opacity-10 rounded-sm flex items-center justify-center mx-auto mb-4">
+            <img
+              src="src/assets/logo/FarmInkForum.jpeg"
+              alt="FarmInk Forum Logo"
+              className="w-12 h-12 rounded-sm object-cover"
+            />
           </div>
+
           <CardTitle className="text-[#1d4d6a]">Create Your Account</CardTitle>
           <CardDescription>Join thousands of learners worldwide</CardDescription>
         </CardHeader>
