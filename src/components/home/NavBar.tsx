@@ -7,7 +7,7 @@ interface NavbarProps {
 
 export function Navbar({ onNavigate }: NavbarProps) {
   return (
-    <nav className="bg-gray-500 backdrop-blur-md px-25 sticky top-0 z-50">
+    <nav className="bg-gray-400 px-25 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Left: Logo */}
         <div

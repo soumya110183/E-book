@@ -18,6 +18,7 @@ import {
   Settings,
   Navigation,
   ShoppingCart,
+  PenIcon,
 } from "lucide-react";
 
 import {
@@ -91,7 +92,7 @@ export function UserDashboard({ onNavigate, onOpenBook, onLogout }: UserDashboar
     { id: "library" as UserSection, icon: BookOpen, label: "My Library" },
     { id: "tests" as UserSection, icon: ClipboardCheck, label: "Mock Tests" },
     { id: "notes" as UserSection, icon: FileText, label: "Notes" },
-    { id: "writing" as UserSection, icon: FileText, label: "Writing Services" },
+    { id: "writing" as UserSection, icon: PenIcon, label: "Writing Services" },
     { id: "jobs" as UserSection, icon: Briefcase, label: "Job Portal" },
     { id: "payments" as UserSection, icon: CreditCard, label: "Payments" },
     { id: "profile" as UserSection, icon: User, label: "Profile" },
@@ -142,40 +143,49 @@ export function UserDashboard({ onNavigate, onOpenBook, onLogout }: UserDashboar
       {/* Sidebar */}
       <aside
         className={`${sidebarCollapsed ? "w-20" : "w-64"
-          } bg-white border-r border-gray-200 fixed h-screen overflow-y-auto transition-all duration-300`}
+          } bg-white border-r border-gray-200 fixed h-screen  transition-all duration-300`}
       >
         <div className="p-6 border-b border-gray-200 flex items-center justify-center">
-          <div className="flex flex-col items-center leading-tight text-center">
-            <span className="text-[#1d4d6a] font-medium">FarmInk Forum</span>
-            <p className="text-xs text-gray-500">Student Portal</p>
-          </div>
+          {!sidebarCollapsed && (
+            <div className="flex flex-col items-center leading-tight text-center">
+              <span className="text-[#1d4d6a] font-medium">FarmInk Forum</span>
+              <p className="text-xs text-gray-500">Student Portal</p>
+            </div>
+          )}
+         {sidebarCollapsed && (
+            <span className="text-[#1d4d6a] font-medium text-sm">
+              FarmInk Forum
+            </span>
+          )}
         </div>
 
-
-
-        <nav className="p-4">
-          {menuItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => {
-                setActiveSection(item.id);
-                setDropdownOpen(false);
-                setAvatarOpen(false);
-              }}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg mb-1 transition-all ${activeSection === item.id
-                ? "bg-[#bf2026] text-white shadow-md"
-                : "text-gray-700 hover:bg-gray-100"
-                }`}
-              title={sidebarCollapsed ? item.label : undefined}
-            >
-              <item.icon
-                className={`w-5 h-5 ${activeSection === item.id ? "text-white" : "group-hover:text-[#bf2026]"
+        <div className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-transparent">
+          <nav className="p-4">
+            {menuItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => {
+                  setActiveSection(item.id);
+                  setDropdownOpen(false);
+                  setAvatarOpen(false);
+                }}
+                className={`w-full flex items-center ${sidebarCollapsed ? "justify-center px-2 py-3" : "gap-3 px-4 py-3"
+                  } rounded-lg mb-1 transition-all group ${activeSection === item.id
+                    ? "bg-[#bf2026] text-white shadow-lg shadow-[#bf2026]/20"
+                    : "text-gray-700 hover:bg-gray-100 hover:text-[#bf2026]"
                   }`}
-              />
-              {!sidebarCollapsed && <span className="text-sm">{item.label}</span>}
-            </button>
-          ))}
-        </nav>
+                title={sidebarCollapsed ? item.label : undefined}
+              >
+                <item.icon
+                  className={`transition-all duration-200 ${sidebarCollapsed ? "w-6 h-6" : "w-5 h-5"
+                    } ${activeSection === item.id ? "text-white" : "group-hover:text-[#bf2026]"}`}
+                />
+                {!sidebarCollapsed && <span className="text-sm">{item.label}</span>}
+              </button>
+            ))}
+          </nav>
+        </div>
+
 
         <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 bg-white">
           <button

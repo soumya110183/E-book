@@ -82,7 +82,7 @@ const sampleQuestions = [
 
 export default function TestPage() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [answers, setAnswers] = useState({});
+  const [answers, setAnswers] = useState<Record<number, string>>({});
   const [timeLeft, setTimeLeft] = useState(600); // 10 minutes
   const [showResult, setShowResult] = useState(false);
   const [score, setScore] = useState(0);
@@ -97,7 +97,7 @@ export default function TestPage() {
     return () => clearInterval(timer);
   }, [timeLeft, showResult]);
 
-  const handleAnswer = (id, option) => {
+  const handleAnswer = (id: number, option: string) => {
     setAnswers((prev) => ({ ...prev, [id]: option }));
   };
 
@@ -116,7 +116,7 @@ export default function TestPage() {
     setShowResult(true);
   };
 
-  const formatTime = (seconds) => {
+  const formatTime = (seconds: number) => {
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
     return `${m}:${s < 10 ? "0" + s : s}`;

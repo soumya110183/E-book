@@ -114,6 +114,9 @@ export function WritingServices() {
                             <SelectItem value="dissertation">Dissertation</SelectItem>
                             <SelectItem value="thesis">Thesis</SelectItem>
                             <SelectItem value="review">Literature Review</SelectItem>
+                            <SelectItem value="notes">Notes</SelectItem>
+                            <SelectItem value="references">References</SelectItem>
+                            <SelectItem value="PPTs">PPTs</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
