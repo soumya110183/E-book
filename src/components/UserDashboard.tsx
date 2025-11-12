@@ -20,20 +20,13 @@ import {
   ShoppingCart,
 } from "lucide-react";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "./ui/dialog";
 
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Progress } from "./ui/progress";
-import { Badge } from "./ui/badge";
+
 import { Avatar, AvatarFallback } from "./ui/avatar";
-import { Toaster } from "./ui/sonner";
+
 import { toast } from "sonner";
 
 import Explore from "./user/Explore";
@@ -46,7 +39,7 @@ import { PaymentsSubscriptions } from "./user/PaymentsSubscriptions";
 import { ProfileSettings } from "./user/ProfileSettings";
 import NotificationView from "./user/NotificationView";
 import CartPage from "./user/Cartpage";
-import { FaReact, FaJsSquare, FaCss3Alt } from "react-icons/fa";
+import axios from "axios";
 
 
 interface UserDashboardProps {
@@ -74,10 +67,46 @@ export function UserDashboard({ onNavigate, onOpenBook, onLogout }: UserDashboar
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [avatarOpen, setAvatarOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+const [error, setError] = useState("");
+const [dashboardData, setDashboardData] = useState<any>(null);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const avatarRef = useRef<HTMLDivElement>(null);
   const cartRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+  const fetchDashboard = async () => {
+    try {
+      const session = JSON.parse(localStorage.getItem("session") || "{}");
+      const token = session?.access_token;
+
+      if (!token) {
+        setError("You are not logged in.");
+        setLoading(false);
+        return;
+      }
+
+      const res = await axios.get("http://localhost:5000/api/dashboard", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setDashboardData(res.data);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to load dashboard data.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchDashboard();
+}, []);
+
+
+
 
   const [cartItems] = useState([
     { id: 1, name: "Atomic Habit", price: 12.99, image: "https://m.media-amazon.com/images/I/81bGKUa1e0L.jpg"},
@@ -205,7 +234,10 @@ export function UserDashboard({ onNavigate, onOpenBook, onLogout }: UserDashboar
                 <Menu className="w-5 h-5 text-gray-600" />
               </Button>
               <div>
-                <h1 className="text-[#1d4d6a] mb-1">Welcome back, Alex!</h1>
+               <h1 className="text-[#1d4d6a] mb-1">
+  Welcome back, {dashboardData?.user?.name || "Student"}!
+</h1>
+
                 <p className="text-sm text-gray-500">Continue your learning journey</p>
               </div>
             </div>
@@ -369,7 +401,15 @@ export function UserDashboard({ onNavigate, onOpenBook, onLogout }: UserDashboar
         {/* Main Content */}
         <main className="p-8">
           <Suspense fallback={<p>Loading...</p>}> {/* 🔹 UPDATED */}
-            {activeSection === "dashboard" && <DashboardHome onOpenBook={onOpenBook} />}
+           {activeSection === "dashboard" && (
+  <DashboardHome
+    onOpenBook={onOpenBook}
+    dashboardData={dashboardData}
+    loading={loading}
+    error={error}
+  />
+)}
+
             {activeSection === "explore" && <Explore onOpenBook={onOpenBook} />}
             {activeSection === "library" && <MyLibrary onOpenBook={onOpenBook} />}
             {activeSection === "tests" && <MockTests />}
@@ -387,7 +427,7 @@ export function UserDashboard({ onNavigate, onOpenBook, onLogout }: UserDashboar
   );
 }
 
-function DashboardHome({ onOpenBook }: { onOpenBook: (book: any) => void }) {
+function DashboardHome({ onOpenBook, dashboardData, loading, error }: { onOpenBook: (book: any) => void; dashboardData?: any; loading: boolean; error: string; }) {
   const [selectedTest, setSelectedTest] = useState<any>(null);
   const [showAllTests, setShowAllTests] = useState(false);
 
@@ -398,99 +438,96 @@ function DashboardHome({ onOpenBook }: { onOpenBook: (book: any) => void }) {
     setSelectedTest(null);
   };
 
-  const recentBooks = [
-    { id: 1, title: "Advanced Calculus", author: "Dr. Smith", progress: 65, cover: "📘" },
-    { id: 2, title: "Quantum Physics", author: "Prof. Johnson", progress: 42, cover: "📗" },
-    { id: 3, title: "Machine Learning", author: "Dr. Chen", progress: 88, cover: "📙" },
-  ];
+const recentBooks = dashboardData?.recentBooks || [];
 
-  const allTests = [
-    { id: 1, title: "Mathematics Mock Test 3", date: "2 days", questions: 50 },
-    { id: 2, title: "Physics Final Prep", date: "5 days", questions: 75 },
-    { id: 3, title: "Computer Science Quiz", date: "1 week", questions: 30 },
-  ];
+
 
   return (
-    <div className="space-y-6">
-      {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="shadow-md hover:shadow-lg transition-shadow">
-          <CardContent className="p-6 flex justify-between">
-            <div>
-              <p className="text-sm text-gray-500 mb-1">Books Read</p>
-              <h3 className="text-[#1d4d6a] mb-1">24</h3>
-              <div className="flex items-center gap-1 text-xs text-green-600">
-                <TrendingUp className="w-3 h-3" />
-                <span>+3 this month</span>
-              </div>
-            </div>
-            <BookOpen className="w-6 h-6 text-[#bf2026]" />
-          </CardContent>
-        </Card>
-        <Card className="shadow-md hover:shadow-lg transition-shadow">
-          <CardContent className="p-6 flex justify-between">
-            <div>
-              <p className="text-sm text-gray-500 mb-1">Tests Completed</p>
-              <h3 className="text-[#1d4d6a] mb-1">18</h3>
-              <div className="flex items-center gap-1 text-xs text-green-600">
-                <Trophy className="w-3 h-3" />
-                <span>92% avg score</span>
-              </div>
-            </div>
-            <ClipboardCheck className="w-6 h-6 text-[#bf2026]" />
-          </CardContent>
-        </Card>
-        <Card className="shadow-md hover:shadow-lg transition-shadow">
-          <CardContent className="p-6 flex justify-between">
-            <div>
-              <p className="text-sm text-gray-500 mb-1">Study Hours</p>
-              <h3 className="text-[#1d4d6a] mb-1">156</h3>
-              <div className="flex items-center gap-1 text-xs text-green-600">
-                <Clock className="w-3 h-3" />
-                <span>24h this week</span>
-              </div>
-            </div>
-            <TrendingUp className="w-6 h-6 text-[#bf2026]" />
-          </CardContent>
-        </Card>
-        <Card className="shadow-md hover:shadow-lg transition-shadow">
-          <CardContent className="p-6 flex justify-between">
-            <div>
-              <p className="text-sm text-gray-500 mb-1">Active Streak</p>
-              <h3 className="text-[#1d4d6a] mb-1">12 Days</h3>
-              <div className="flex items-center gap-1 text-xs text-orange-600">
-                <Trophy className="w-3 h-3" />
-                <span>Keep it up!</span>
-              </div>
-            </div>
-            <Trophy className="w-6 h-6 text-[#bf2026]" />
-          </CardContent>
-        </Card>
+   <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+  {/* Books Read */}
+  <Card className="shadow-md hover:shadow-lg transition-shadow">
+    <CardContent className="p-6 flex justify-between">
+      <div>
+        <p className="text-sm text-gray-500 mb-1">Books Read</p>
+        <h3 className="text-[#1d4d6a] mb-1">
+          {dashboardData?.stats?.booksRead ?? 0}
+        </h3>
+        <div className="flex items-center gap-1 text-xs text-green-600">
+          <TrendingUp className="w-3 h-3" />
+          <span>
+            {dashboardData?.stats?.booksChange > 0
+              ? `+${dashboardData.stats.booksChange} this month`
+              : "No new books this month"}
+          </span>
+        </div>
       </div>
+      <BookOpen className="w-6 h-6 text-[#bf2026]" />
+    </CardContent>
+  </Card>
 
-      {/* Continue Reading */}
-      <Card className="shadow-md">
-        <CardHeader>
-          <CardTitle className="text-[#1d4d6a]">Continue Reading</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {recentBooks.map((book) => (
-            <div
-              key={book.id}
-              className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer"
-              onClick={() => onOpenBook(book)}
-            >
-              <div className="text-4xl">{book.cover}</div>
-              <div className="flex-1">
-                <h4 className="text-[#1d4d6a] mb-1">{book.title}</h4>
-                <p className="text-sm text-gray-500 mb-2">{book.author}</p>
-                <Progress value={book.progress} className="flex-1 h-2" />
-              </div>
-              <ChevronRight className="w-5 h-5 text-gray-400" />
-            </div>
-          ))}
-        </CardContent>
-      </Card>
-    </div>
+  {/* Tests Completed */}
+  <Card className="shadow-md hover:shadow-lg transition-shadow">
+    <CardContent className="p-6 flex justify-between">
+      <div>
+        <p className="text-sm text-gray-500 mb-1">Tests Completed</p>
+        <h3 className="text-[#1d4d6a] mb-1">
+          {dashboardData?.stats?.testsCompleted ?? 0}
+        </h3>
+        <div className="flex items-center gap-1 text-xs text-green-600">
+          <Trophy className="w-3 h-3" />
+          <span>
+            {dashboardData?.stats?.averageScore
+              ? `${dashboardData.stats.averageScore}% avg score`
+              : "No tests yet"}
+          </span>
+        </div>
+      </div>
+      <ClipboardCheck className="w-6 h-6 text-[#bf2026]" />
+    </CardContent>
+  </Card>
+
+  {/* Study Hours */}
+  <Card className="shadow-md hover:shadow-lg transition-shadow">
+    <CardContent className="p-6 flex justify-between">
+      <div>
+        <p className="text-sm text-gray-500 mb-1">Study Hours</p>
+        <h3 className="text-[#1d4d6a] mb-1">
+          {dashboardData?.stats?.studyHours ?? 0}h
+        </h3>
+        <div className="flex items-center gap-1 text-xs text-green-600">
+          <Clock className="w-3 h-3" />
+          <span>
+            {dashboardData?.stats?.weeklyHours
+              ? `${dashboardData.stats.weeklyHours}h this week`
+              : "No study time logged"}
+          </span>
+        </div>
+      </div>
+      <TrendingUp className="w-6 h-6 text-[#bf2026]" />
+    </CardContent>
+  </Card>
+
+  {/* Active Streak */}
+  <Card className="shadow-md hover:shadow-lg transition-shadow">
+    <CardContent className="p-6 flex justify-between">
+      <div>
+        <p className="text-sm text-gray-500 mb-1">Active Streak</p>
+        <h3 className="text-[#1d4d6a] mb-1">
+          {dashboardData?.stats?.activeStreak ?? 0} Days
+        </h3>
+        <div className="flex items-center gap-1 text-xs text-orange-600">
+          <Trophy className="w-3 h-3" />
+          <span>
+            {dashboardData?.stats?.activeStreak >= 5
+              ? "🔥 Great streak!"
+              : "Keep it up!"}
+          </span>
+        </div>
+      </div>
+      <Trophy className="w-6 h-6 text-[#bf2026]" />
+    </CardContent>
+  </Card>
+</div>
+
   );
 }

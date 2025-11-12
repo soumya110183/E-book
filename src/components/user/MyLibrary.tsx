@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState ,useEffect} from 'react';
 import { Card, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
@@ -9,6 +9,8 @@ import { Label } from '../ui/label';
 import { Textarea } from '../ui/textarea';
 import { BookOpen, Grid3x3, List, Search, Filter, MoreVertical, Edit, Trash2, FolderPlus, StickyNote } from 'lucide-react';
 import { toast } from 'sonner';
+
+import axios from "axios";
 
 interface MyLibraryProps {
   onOpenBook: (book: any) => void;
@@ -22,33 +24,223 @@ export function MyLibrary({ onOpenBook }: MyLibraryProps) {
   const [collectionName, setCollectionName] = useState('');
   const [bookNote, setBookNote] = useState('');
 
-  const books = [
-    { id: 1, title: 'Agricultural Extension Education', author: 'Dr. Sarah Smith', category: 'Agricultural Extension Education', progress: 65, purchased: '2024-01-15', cover: '📘', pages: 450 },
-    { id: 2, title: 'Adult and Continuing Education and Extension', author: 'Prof. Michael Johnson', category: 'Adult and Continuing Education and Extension', progress: 42, purchased: '2024-02-01', cover: '📗', pages: 520 }
-  ];
+  const [books, setBooks] = useState<any[]>([]);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState("");
+const [collections, setCollections] = useState<any[]>([]);
+const [loadingCollections, setLoadingCollections] = useState(true);
+useEffect(() => {
+  const fetchCollections = async () => {
+    try {
+      const session = JSON.parse(localStorage.getItem("session") || "{}");
+      const token = session?.access_token;
+      if (!token) return;
 
-  const handleAddNote = (book: any) => {
-    setSelectedBook(book);
-    setBookNote('');
-    setIsNoteDialogOpen(true);
+      const res = await axios.get("http://localhost:5000/api/library/collections", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      setCollections(res.data || []);
+    } catch (err) {
+      console.error("Failed to load collections:", err);
+      toast.error("Failed to load collections");
+    } finally {
+      setLoadingCollections(false);
+    }
   };
+
+  fetchCollections();
+}, [isCollectionDialogOpen]); // refetch when a new one is added
+
+
+useEffect(() => {
+  const fetchLibrary = async () => {
+    try {
+      const session = JSON.parse(localStorage.getItem("session") || "{}");
+      const token = session?.access_token;
+
+      if (!token) {
+        setError("You are not logged in.");
+        setLoading(false);
+        return;
+      }
+
+      const res = await axios.get("http://localhost:5000/api/library", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // Flatten the nested books structure
+      const formattedBooks = res.data.map((entry: any) => ({
+        id: entry.books.id,
+        title: entry.books.title,
+        author: entry.books.author,
+        genre: entry.books.genre,
+        category: entry.books.category,
+        cover_url: entry.books.cover_url,
+        pages: entry.books.pages,
+        price: entry.books.price,
+        progress: entry.progress,
+        purchased: entry.added_at,
+      }));
+
+      setBooks(formattedBooks);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to load your library");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchLibrary();
+}, []);
+
+// 🧠 Debounced search setup
+let searchTimeout: any;
+
+const handleSearch = async (query: string) => {
+  try {
+    const session = JSON.parse(localStorage.getItem("session") || "{}");
+    const token = session?.access_token;
+    if (!token) return;
+
+    const res = await axios.get(`http://localhost:5000/api/library/search?query=${query}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    // Format results properly
+    const formatted = res.data.map((entry: any) => ({
+      id: entry.books.id,
+      title: entry.books.title,
+      author: entry.books.author,
+      genre: entry.books.genre,
+      category: entry.books.category,
+      cover_url: entry.books.cover_url,
+      pages: entry.books.pages,
+      price: entry.books.price,
+      progress: entry.progress,
+      purchased: entry.added_at,
+    }));
+
+    setBooks(formatted);
+  } catch (err) {
+    console.error("Search error:", err);
+    toast.error("Search failed");
+  }
+};
+
+// 🕓 Debounced input handler
+const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  clearTimeout(searchTimeout);
+  const value = e.target.value.trim();
+
+  searchTimeout = setTimeout(() => {
+    if (value.length > 0) {
+      handleSearch(value);
+    } else {
+      // Re-fetch full library when clearing search
+      const session = JSON.parse(localStorage.getItem("session") || "{}");
+      const token = session?.access_token;
+      axios
+        .get("http://localhost:5000/api/library", {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          const formattedBooks = res.data.map((entry: any) => ({
+            id: entry.books.id,
+            title: entry.books.title,
+            author: entry.books.author,
+            genre: entry.books.genre,
+            category: entry.books.category,
+            cover_url: entry.books.cover_url,
+            pages: entry.books.pages,
+            price: entry.books.price,
+            progress: entry.progress,
+            purchased: entry.added_at,
+          }));
+          setBooks(formattedBooks);
+        })
+        .catch(() => toast.error("Failed to reload library"));
+    }
+  }, 400);
+};
+
+
+
+const handleRemoveBook = async (bookId: number) => {
+  try {
+    const session = JSON.parse(localStorage.getItem("session") || "{}");
+    const token = session?.access_token;
+    await axios.delete(`http://localhost:5000/api/library/remove/${bookId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    toast.success("Book removed from library");
+    setBooks((prev) => prev.filter((b) => b.id !== bookId));
+  } catch (err) {
+    toast.error("Failed to remove book");
+  }
+};
+
 
   const handleSaveNote = () => {
     toast.success('Note saved successfully!');
     setIsNoteDialogOpen(false);
   };
 
-  const handleRemoveBook = (bookId: number) => {
-    toast.success('Book removed from library');
-  };
+const addBookToLibrary = async (bookId: number) => {
+  try {
+    const session = JSON.parse(localStorage.getItem("session") || "{}");
+    const token = session?.access_token;
+    await axios.post(`http://localhost:5000/api/library/add/${bookId}`, {}, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    toast.success("Book added to library");
+  } catch (err) {
+    toast.error("Failed to add book");
+  }
+};
 
-  const handleCreateCollection = () => {
-    if (collectionName.trim()) {
-      toast.success(`Collection "${collectionName}" created!`);
-      setCollectionName('');
-      setIsCollectionDialogOpen(false);
-    }
-  };
+const handleDeleteCollection = async (id: number) => {
+  if (!window.confirm("Are you sure you want to delete this collection?")) return;
+
+  try {
+    const session = JSON.parse(localStorage.getItem("session") || "{}");
+    const token = session?.access_token;
+    await axios.delete(`http://localhost:5000/api/library/collections/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    toast.success("Collection deleted");
+    setCollections((prev) => prev.filter((c) => c.id !== id));
+  } catch (err) {
+    console.error(err);
+    toast.error("Failed to delete collection");
+  }
+};
+
+const handleCreateCollection = async () => {
+  if (!collectionName.trim()) return;
+
+  try {
+    const session = JSON.parse(localStorage.getItem("session") || "{}");
+    const token = session?.access_token;
+    await axios.post(
+      "http://localhost:5000/api/library/collections",
+      { name: collectionName },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+    toast.success(`Collection "${collectionName}" created`);
+    setCollectionName("");
+    setIsCollectionDialogOpen(false);
+  } catch (err) {
+    console.error(err);
+    toast.error("Failed to create collection");
+  }
+};
+
 
   return (
     <div className="space-y-6">
@@ -67,11 +259,15 @@ export function MyLibrary({ onOpenBook }: MyLibraryProps) {
           </Button>
           <div className="relative">
             <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              placeholder="Search library..."
-              className="pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#bf2026] focus:border-transparent"
-            />
+           <input
+  type="text"
+  placeholder="Search library..."
+  onChange={handleSearchInput}
+  className="pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#bf2026] focus:border-transparent"
+/>
+
+
+
           </div>
           <Button variant="outline" className="gap-2">
             <Filter className="w-4 h-4" />
@@ -100,6 +296,7 @@ export function MyLibrary({ onOpenBook }: MyLibraryProps) {
           <TabsTrigger value="reading">Currently Reading</TabsTrigger>
           <TabsTrigger value="completed">Completed</TabsTrigger>
           <TabsTrigger value="recent">Recently Added</TabsTrigger>
+          <TabsTrigger value="collection">Collection</TabsTrigger>
         </TabsList>
 
         <TabsContent value="all" className="mt-6">
@@ -268,10 +465,15 @@ export function MyLibrary({ onOpenBook }: MyLibraryProps) {
 
       {/* Create Collection Dialog */}
       <Dialog open={isCollectionDialogOpen} onOpenChange={setIsCollectionDialogOpen}>
-        <DialogContent>
+       <DialogContent aria-describedby="collection-desc">
+
           <DialogHeader>
-            <DialogTitle className="text-[#1d4d6a]">Create New Collection</DialogTitle>
-          </DialogHeader>
+  <DialogTitle className="text-[#1d4d6a]">Create New Collection</DialogTitle>
+  <p className="text-sm text-gray-500" id="collection-desc">
+    Enter a name for your new book collection.
+  </p>
+</DialogHeader>
+
           <div className="space-y-4 py-4">
             <div className="space-y-2">
               <Label htmlFor="collection-name">Collection Name</Label>

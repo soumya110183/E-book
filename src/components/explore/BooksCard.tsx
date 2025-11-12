@@ -8,11 +8,16 @@ const BookCard = ({ book, onNavigate }: any) => {
   return (
     <Card className="border-none shadow-md hover:shadow-xl transition-all group overflow-hidden">
       <div className="relative h-64 overflow-hidden">
-        <ImageWithFallback
-          src={book.cover}
-          alt={book.title}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-        />
+        <img
+  src={book.cover_url}
+  alt={book.title}
+  className="w-full h-64 object-cover rounded-xl shadow-md"
+  onError={(e) => {
+    e.currentTarget.src = "https://via.placeholder.com/300x400?text=No+Image";
+  }}
+  loading="lazy"
+/>
+
         {book.bestseller && (
           <Badge className="absolute top-3 left-3 bg-[#bf2026] text-white">
             <Award className="w-3 h-3 mr-1" />
@@ -36,9 +41,16 @@ const BookCard = ({ book, onNavigate }: any) => {
       </div>
 
       <CardContent className="p-4">
-        <Badge className="bg-blue-100 text-blue-700 text-xs mb-2">
-          {book.category}
-        </Badge>
+<Badge
+  title={book.category}
+  className="bg-blue-100 text-blue-700 mb-2 block overflow-hidden text-ellipsis whitespace-nowrap max-w-[180px] cursor-help text-left"
+>
+  {book.category}
+</Badge>
+
+
+
+
         <h3 className="text-[#1d4d6a] mb-1 line-clamp-1">{book.title}</h3>
         <p className="text-sm text-gray-500 mb-3">{book.author}</p>
 

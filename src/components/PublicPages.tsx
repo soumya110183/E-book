@@ -3,8 +3,8 @@ import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from './ui/card';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
-
-import { BookOpen, Check, Mail, MapPin, Phone, Star, Users, Award, TrendingUp, Search, Filter, Sparkles, Target, Heart, Shield, Globe, Zap, Clock } from 'lucide-react';
+import axios from "axios"
+import { BookOpen,} from 'lucide-react';
 import { Navbar } from './home/NavBar';
 import { Footer } from './home/Footer';
 import ExplorePage from './explore/ExplorePage';
@@ -39,145 +39,193 @@ export function PublicPages({ page, onNavigate, onLogin }: PublicPagesProps) {
   );
 }
 
-function LoginPage({ onNavigate, onLogin }: { onNavigate: (page: string) => void, onLogin?: (role: 'user' | 'admin') => void }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const handleLogin = () => {
-    localStorage.setItem('isLoggedIn', 'true');
-    setIsLoggedIn(true);
+export  function LoginPage({
+  onNavigate,
+  onLogin,
+}: {
+  onNavigate: (page: string) => void;
+  onLogin?: (role: "user" | "admin") => void;
+}) {
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+ const handleLogin = async () => {
+  setError("");
+  setLoading(true);
+
+  try {
+    const res = await axios.post("http://localhost:5000/api/auth/login", {
+      email: formData.email,
+      password: formData.password,
+    });
+
+    const { user } = res.data;
+
+    // Store login info locally
+    localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem("role", user.role);
+
+    // ✅ Only one admin — the super admin
+    if (user.role === "super_admin") {
+      onLogin?.("admin"); // goes to admin dashboard
+    } else {
+      onLogin?.("user"); // normal user
+    }
+  } catch (err: any) {
+    console.error(err);
+    setError(err.response?.data?.error || "Invalid email or password");
+  } finally {
+    setLoading(false);
   }
+};
+
+
   return (
-    <div className="min-h-[80vh] flex items-center justify-center py-6  px-6 bg-[#f5f6f8]">
+    <div className="min-h-[80vh] flex items-center justify-center py-6 px-6 bg-[#f5f6f8]">
       <Card className="w-full max-w-md border-none shadow-xl">
         <CardHeader className="text-center">
-          <div className="w-16 h-16  bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
             <BookOpen className="w-8 h-8 text-[#bf2026]" />
           </div>
           <CardTitle className="text-[#1d4d6a]">Welcome Back</CardTitle>
           <CardDescription>Sign in to access your academic resources</CardDescription>
         </CardHeader>
+
         <CardContent className="space-y-4">
           <div>
             <Label>Email Address</Label>
-            <Input type="email" placeholder="your@email.com" />
+            <Input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="your@email.com"
+            />
           </div>
+
           <div>
             <Label>Password</Label>
-            <Input type="password" placeholder="••••••••" />
+            <Input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="••••••••"
+            />
           </div>
-          <div className="flex items-center justify-between text-sm">
-            <label className="flex items-center gap-2">
-              <input type="checkbox" className="rounded" />
-              <span className="text-gray-600">Remember me</span>
-            </label>
-            <button className="text-[#bf2026] hover:underline">Forgot password?</button>
-          </div>
-          <Button 
-            onClick={() => onLogin?.('user')}
+
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+
+          <Button
+            onClick={handleLogin}
+            disabled={loading}
             className="w-full bg-[#bf2026] hover:bg-[#a01c22] text-white"
           >
-            Sign In as Student
+            {loading ? "Signing In..." : "Sign In"}
           </Button>
-          <Button 
-            onClick={() => onLogin?.('admin')}
-            variant="outline"
-            className="w-full border-[#1d4d6a] text-[#1d4d6a] hover:bg-[#1d4d6a] hover:text-white"
-          >
-            Sign In as Admin
-          </Button>
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300"></div>
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">Or continue with</span>
-            </div>
+
+          <div className="text-center mt-4">
+            <p className="text-sm text-gray-600">
+              Don’t have an account?{" "}
+              <button
+                onClick={() => onNavigate("register")}
+                className="text-[#bf2026] hover:underline"
+              >
+                Sign up free
+              </button>
+            </p>
           </div>
-          <div className="grid grid-cols-2 gap-3">
-            <Button variant="outline" className="w-full">
-              <Globe className="w-4 h-4 mr-2" />
-              Google
-            </Button>
-            <Button variant="outline" className="w-full">
-              <Mail className="w-4 h-4 mr-2" />
-              Email
-            </Button>
-          </div>
-          <p className="text-center text-sm text-gray-600">
-            Don't have an account?{' '}
-            <button onClick={() => onNavigate('register')} className="text-[#bf2026] hover:underline">
-              Sign up free
-            </button>
-          </p>
         </CardContent>
       </Card>
     </div>
   );
 }
+export default function RegisterPage({ onNavigate }: { onNavigate: (page: string) => void }) {
+  const [formData, setFormData] = useState({
+   
+    email: "",
+    password: "",
+   
+   
+    confirmPassword: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-function RegisterPage({ onNavigate }: { onNavigate: (page: string) => void }) {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleRegister = async () => {
+  setError("");
+  if (formData.password !== formData.confirmPassword) {
+    return setError("Passwords do not match");
+  }
+
+  try {
+    setLoading(true);
+    const res = await axios.post("http://localhost:5000/api/auth/register", {
+      email: formData.email,
+      password: formData.password,
+    });
+
+    const userId = res.data?.user?.id;
+
+    // 🧩 Now update profile name
+    if (userId) {
+      await axios.put("http://localhost:5000/api/profile/update", {
+        userId,
+      
+      });
+    }
+
+    alert("✅ Account created successfully!");
+    onNavigate("login");
+  } catch (err: any) {
+    console.error(err);
+    setError(err.response?.data?.error || "Registration failed");
+  } finally {
+    setLoading(false);
+  }
+};
+
+
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-6 py-12 bg-[#f5f6f8]">
       <Card className="w-full max-w-md border-none shadow-xl">
         <CardHeader className="text-center">
-          <div className="w-16 h-16  bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
             <BookOpen className="w-8 h-8 text-[#bf2026]" />
           </div>
           <CardTitle className="text-[#1d4d6a]">Create Your Account</CardTitle>
           <CardDescription>Join thousands of learners worldwide</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <Label>First Name</Label>
-              <Input placeholder="John" />
-            </div>
-            <div>
-              <Label>Last Name</Label>
-              <Input placeholder="Doe" />
-            </div>
-          </div>
+          
           <div>
-            <Label>Email Address</Label>
-            <Input type="email" placeholder="your@email.com" />
+            <Label>Email</Label>
+            <Input name="email" type="email" placeholder="your@email.com" value={formData.email} onChange={handleChange} />
           </div>
           <div>
             <Label>Password</Label>
-            <Input type="password" placeholder="••••••••" />
+            <Input name="password" type="password" placeholder="••••••••" value={formData.password} onChange={handleChange} />
           </div>
           <div>
             <Label>Confirm Password</Label>
-            <Input type="password" placeholder="••••••••" />
+            <Input name="confirmPassword" type="password" placeholder="••••••••" value={formData.confirmPassword} onChange={handleChange} />
           </div>
-          <div className="flex items-start gap-2">
-            <input type="checkbox" className="mt-1 rounded" />
-            <label className="text-xs text-gray-600">
-              I agree to the <button className="text-[#bf2026] hover:underline">Terms of Service</button> and <button className="text-[#bf2026] hover:underline">Privacy Policy</button>
-            </label>
-          </div>
-          <Button className="w-full bg-[#bf2026] hover:bg-[#a01c22] text-white">
-            Create Account
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+          <Button onClick={handleRegister} disabled={loading} className="w-full bg-[#bf2026] text-white">
+            {loading ? "Creating..." : "Create Account"}
           </Button>
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300"></div>
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">Or sign up with</span>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-3">
-            <Button variant="outline" className="w-full">
-              <Globe className="w-4 h-4 mr-2" />
-              Google
-            </Button>
-            <Button variant="outline" className="w-full">
-              <Mail className="w-4 h-4 mr-2" />
-              Email
-            </Button>
-          </div>
           <p className="text-center text-sm text-gray-600">
-            Already have an account?{' '}
-            <button onClick={() => onNavigate('login')} className="text-[#bf2026] hover:underline">
+            Already have an account?{" "}
+            <button onClick={() => onNavigate("login")} className="text-[#bf2026] hover:underline ">
               Sign in
             </button>
           </p>
