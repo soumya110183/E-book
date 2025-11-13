@@ -23,7 +23,7 @@ const NotificationsPage: React.FC<NotificationsPageProps> = ({ onNavigate }) => 
             message: "Your subscription has been renewed successfully.",
             time: "2 hours ago",
             unread: true,
-            link: "payments-subscriptions",
+            link: "PaymentsSubscriptions",
         },
         {
             id: 2,
@@ -66,7 +66,7 @@ const NotificationsPage: React.FC<NotificationsPageProps> = ({ onNavigate }) => 
         setNotifications((prev) =>
             prev.map((n) => (n.id === id ? { ...n, unread: false } : n))
         );
-        onNavigate(link);
+        //onNavigate(link);
     };
 
     return (

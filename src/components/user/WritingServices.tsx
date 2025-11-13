@@ -117,6 +117,7 @@ export function WritingServices() {
                             <SelectItem value="notes">Notes</SelectItem>
                             <SelectItem value="references">References</SelectItem>
                             <SelectItem value="PPTs">PPTs</SelectItem>
+                            <SelectItem value="others">Others</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>

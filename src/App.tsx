@@ -18,10 +18,11 @@ type Page =
   | "login"
   | "register"
   | "reader"
-  | "test";
+  | "test"
+  | "collections";
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<Page | null>(null); // 🟢 null = don’t render yet
+  const [currentPage, setCurrentPage] = useState<Page | null>(null);
   const [selectedBook, setSelectedBook] = useState<any>(null);
   const [userRole, setUserRole] = useState<"user" | "admin" | null>(null);
   const [loading, setLoading] = useState(true);
@@ -36,6 +37,10 @@ export default function App() {
       setCurrentPage("user-dashboard");
     } else if (path === "/admin-dashboard") {
       setCurrentPage("admin-dashboard");
+    } else if (path.startsWith("/collections")) {
+      setCurrentPage("collections");
+      const id = path.split("/collections/")[1];
+      if (id) localStorage.setItem("currentCollectionId", id);
     } else if (
       ["/explore", "/pricing", "/about", "/contact", "/login", "/register"].includes(path)
     ) {
@@ -74,9 +79,15 @@ export default function App() {
     window.history.pushState({}, "", "/reader");
   };
 
-  const handleNavigate = (page: string) => {
+  const handleNavigate = (page: string, id?: number) => {
     setCurrentPage(page as Page);
-    window.history.pushState({}, "", `/${page === "home" ? "" : page}`);
+
+    if (page === "collections" && id) {
+      window.history.pushState({}, "", `/collections/${id}`);
+      localStorage.setItem("currentCollectionId", id.toString());
+    } else {
+      window.history.pushState({}, "", `/${page === "home" ? "" : page}`);
+    }
   };
 
   const handleLogout = () => {
@@ -85,7 +96,7 @@ export default function App() {
     window.history.pushState({}, "", "/");
   };
 
-  // 🟢 Loading state (no “home flash”)
+  // Loading screen
   if (loading || currentPage === null) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#f5f6f8]">
