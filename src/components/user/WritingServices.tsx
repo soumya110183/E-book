@@ -128,10 +128,13 @@ export function WritingServices() {
                             <SelectValue placeholder="Select level" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="high-school">Post Doc </SelectItem>
-                            <SelectItem value="undergraduate">Diploma </SelectItem>
-                            <SelectItem value="masters">PG Diploma </SelectItem>
-                            <SelectItem value="phd">Others </SelectItem>
+                            <SelectItem value="high-school">High-School </SelectItem>
+                            <SelectItem value="undergraduate">Undergraduate </SelectItem>
+                            <SelectItem value="masters">Masters </SelectItem>
+                            <SelectItem value="post-doc">Post Doc </SelectItem>
+                            <SelectItem value="diploma">Diploma </SelectItem>
+                            <SelectItem value="pg-diploma">PG Diploma </SelectItem>
+                            <SelectItem value="others">Others </SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -149,19 +152,19 @@ export function WritingServices() {
                           <SelectValue placeholder="Select subject" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="science">Agriculture Extension Education</SelectItem>
-                          <SelectItem value="social">Adult and Continuing Education and Extension</SelectItem>
-                          <SelectItem value="humanities">Education</SelectItem>
-                          <SelectItem value="engineering">Sociology</SelectItem>
-                          <SelectItem value="business">Rural Development</SelectItem>
-                          <SelectItem value="business">Mass Communication and Journalism</SelectItem>
-                          <SelectItem value="business">Agriculture Statistics </SelectItem>
-                          <SelectItem value="business">Agricultural Economics</SelectItem>
-                          <SelectItem value="business">Community Science </SelectItem>
-                          <SelectItem value="business">Agribusiness Management </SelectItem>
-                          <SelectItem value="business">Agriculture Marketing </SelectItem>
-                          <SelectItem value="business">Other Agricultural Sciences</SelectItem>
-                          <SelectItem value="business">Others</SelectItem>
+                          <SelectItem value="agriculture">Agriculture Extension Education</SelectItem>
+                          <SelectItem value="adult">Adult and Continuing Education and Extension</SelectItem>
+                          <SelectItem value="education">Education</SelectItem>
+                          <SelectItem value="sociology">Sociology</SelectItem>
+                          <SelectItem value="rural-development">Rural Development</SelectItem>
+                          <SelectItem value="mass-communication-journalism">Mass Communication and Journalism</SelectItem>
+                          <SelectItem value="agriculture-statistics">Agriculture Statistics </SelectItem>
+                          <SelectItem value="agricultural-economics">Agricultural Economics</SelectItem>
+                          <SelectItem value="community-science">Community Science </SelectItem>
+                          <SelectItem value="agribusiness-management">Agribusiness Management </SelectItem>
+                          <SelectItem value="agriculture-marketing">Agriculture Marketing </SelectItem>
+                          <SelectItem value="other-agricultural-sciences">Other Agricultural Sciences</SelectItem>
+                          <SelectItem value="others">Others</SelectItem>
                           
                         </SelectContent>
                       </Select>
