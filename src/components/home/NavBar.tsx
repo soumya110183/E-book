@@ -1,5 +1,4 @@
-import { BookOpen } from 'lucide-react';
-import { Button } from '../ui/button';
+import { Button } from "../ui/button";
 
 interface NavbarProps {
   onNavigate: (page: string) => void;
@@ -7,61 +6,47 @@ interface NavbarProps {
 
 export function Navbar({ onNavigate }: NavbarProps) {
   return (
-    <nav className="bg-gray-400 px-25 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        {/* Left: Logo */}
+    <nav className="fixed top-0 left-0 w-full z-50 bg-white/30 backdrop-blur-md shadow-sm">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-15 py-3">
+
+        {/* ---------- Logo ---------- */}
         <div
-          className="flex items-center gap-2 cursor-pointer"
-          onClick={() => onNavigate('home')}
+          className="flex items-center gap-2 cursor-pointer select-none"
+          onClick={() => onNavigate("home")}
         >
           <img
-            src="/logoIcon.ico"
+            src="/logooutline.png"
             alt="FarmInk Forum Logo"
-            className="w-20 h-20 object-cover mt-2"
+            className="h-15 w-auto object-contain drop-shadow-sm"
           />
         </div>
 
-        {/* Right: Navigation Links */}
-        <div className="flex items-center gap-6">
-          <button
-            onClick={() => onNavigate('home')}
-            className="text-white hover:text-[#bf2026] transition-colors"
-          >
-            Home
-          </button>
-          <button
-            onClick={() => onNavigate('explore')}
-            className="text-white hover:text-[#bf2026] transition-colors"
-          >
-            Explore
-          </button>
-          <button
-            onClick={() => onNavigate('pricing')}
-            className="text-white hover:text-[#bf2026] transition-colors"
-          >
-            Pricing
-          </button>
-          <button
-            onClick={() => onNavigate('about')}
-            className="text-white hover:text-[#bf2026] transition-colors"
-          >
-            About
-          </button>
-          <button
-            onClick={() => onNavigate('contact')}
-            className="text-white hover:text-[#bf2026] transition-colors"
-          >
-            Contact
-          </button>
+        {/* ---------- Navigation Links ---------- */}
+        <div className="hidden md:flex items-center gap-8">
+          {["home", "explore", "pricing", "about", "contact"].map((page) => (
+            <button
+              key={page}
+              onClick={() => onNavigate(page)}
+              className="text-[#1d4d6a] hover:text-[#bf2026] font-medium tracking-wide transition"
+            >
+              {page.charAt(0).toUpperCase() + page.slice(1)}
+            </button>
+          ))}
+
           <Button
-            onClick={() => onNavigate('login')}
-            className="bg-[#bf2026] hover:bg-[#a01c22] text-white rounded-lg px-6"
+            onClick={() => onNavigate("login")}
+            className="bg-[#bf2026] hover:bg-[#a01c22] text-white rounded-xl px-6 py-2 shadow-md transition"
           >
             Sign In
           </Button>
         </div>
+
+        {/* ---------- Mobile Menu Icon (optional) ---------- */}
+        <div className="md:hidden">
+          <button className="text-[#1d4d6a] text-xl font-bold">☰</button>
+        </div>
+
       </div>
     </nav>
-
   );
 }

@@ -128,10 +128,10 @@ export function WritingServices() {
                             <SelectValue placeholder="Select level" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="high-school">High School</SelectItem>
-                            <SelectItem value="undergraduate">Undergraduate</SelectItem>
-                            <SelectItem value="masters">Master's</SelectItem>
-                            <SelectItem value="phd">PhD</SelectItem>
+                            <SelectItem value="high-school">Post Doc </SelectItem>
+                            <SelectItem value="undergraduate">Diploma </SelectItem>
+                            <SelectItem value="masters">PG Diploma </SelectItem>
+                            <SelectItem value="phd">Others </SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -149,11 +149,20 @@ export function WritingServices() {
                           <SelectValue placeholder="Select subject" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="science">Natural Sciences</SelectItem>
-                          <SelectItem value="social">Social Sciences</SelectItem>
-                          <SelectItem value="humanities">Humanities</SelectItem>
-                          <SelectItem value="engineering">Engineering</SelectItem>
-                          <SelectItem value="business">Business</SelectItem>
+                          <SelectItem value="science">Agriculture Extension Education</SelectItem>
+                          <SelectItem value="social">Adult and Continuing Education and Extension</SelectItem>
+                          <SelectItem value="humanities">Education</SelectItem>
+                          <SelectItem value="engineering">Sociology</SelectItem>
+                          <SelectItem value="business">Rural Development</SelectItem>
+                          <SelectItem value="business">Mass Communication and Journalism</SelectItem>
+                          <SelectItem value="business">Agriculture Statistics </SelectItem>
+                          <SelectItem value="business">Agricultural Economics</SelectItem>
+                          <SelectItem value="business">Community Science </SelectItem>
+                          <SelectItem value="business">Agribusiness Management </SelectItem>
+                          <SelectItem value="business">Agriculture Marketing </SelectItem>
+                          <SelectItem value="business">Other Agricultural Sciences</SelectItem>
+                          <SelectItem value="business">Others</SelectItem>
+                          
                         </SelectContent>
                       </Select>
                     </div>

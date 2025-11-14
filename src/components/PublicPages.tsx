@@ -47,7 +47,7 @@ function LoginPage({ onNavigate, onLogin }: { onNavigate: (page: string) => void
   }
   return (
     <div className="min-h-[80vh] flex items-center justify-center py-6  px-6 bg-[#f5f6f8]">
-      <Card className="w-full max-w-md border-none shadow-xl">
+      <Card className="mt-20 w-full max-w-md border-none shadow-xl">
         <CardHeader className="text-center">
           {/* <div className="w-16 h-16 bg-opacity-10 rounded-sm flex items-center justify-center mx-auto mb-4">
             <img

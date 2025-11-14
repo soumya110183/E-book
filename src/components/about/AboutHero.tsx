@@ -12,10 +12,10 @@ const AboutHero = () => (
       />
     </div>
     <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-      <h1 className="text-6xl mb-6">Empowering Knowledge and Growth Everywhere</h1>
+      <h1 className="text-6xl mb-6">Empowering Agricultural Learning Across India</h1>
       <p className="text-xl text-gray-200">
-Since 2020, EduFarm Connect has been dedicated to supporting learners, mentors, and institutions with quality academic content, practice modules, and digital resources. Our vision is to create an inclusive learning environment that inspires curiosity, encourages innovation, and connects education with real-world progress.</p>
-    </div>
+Since 2020, FarmInk Forum has been helping students and researchers access trusted academic materials, mock tests, and learning tools for success in agriculture education.
+Our goal is to bridge the gap between classroom learning and competitive exam success through focused, practical resources.</p>    </div>
   </section>
 );
 

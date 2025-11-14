@@ -7,8 +7,17 @@ interface HeroProps {
 
 const HeroSection: React.FC<HeroProps> = ({ billingCycle, setBillingCycle }) => {
   return (
-    <section className="bg-gradient-to-br from-[#1d4d6a] to-[#2a5f7f] text-white py-20">
-      <div className="max-w-4xl mx-auto px-6 text-center">
+    <section className="relative bg-gradient-to-br from-[#1d4d6a] to-[#2a5f7f] text-white py-20 overflow-hidden">
+
+      {/* Visible Dotted Pattern */}
+      <div className="
+        absolute inset-0 pointer-events-none opacity-20
+        bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.4)_1px,_transparent_1px)]
+        bg-[size:22px_22px]
+      ">
+      </div>
+
+      <div className="relative mt-15 max-w-4xl mx-auto px-6 text-center">
         <h1 className="text-5xl mb-6">Simple, Transparent Pricing</h1>
         <p className="text-xl text-gray-200 mb-8">
           Choose the plan that fits your academic journey. Cancel anytime.
@@ -26,6 +35,7 @@ const HeroSection: React.FC<HeroProps> = ({ billingCycle, setBillingCycle }) => 
           >
             Monthly
           </button>
+
           <button
             onClick={() => setBillingCycle('annual')}
             className={`px-6 py-2 rounded-md transition-all ${

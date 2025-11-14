@@ -213,7 +213,7 @@ export function AdminDashboard({ onNavigate, onLogout }: AdminDashboardProps) {
                 >
                   <Avatar className="w-8 h-8 ring-2 ring-gray-300 rounded-sm">
                     <img
-                      src="/FarmInkForum.ico"
+                      src="/logooutline.png"
                       alt="Admin Avatar"
                       className="w-9 h-9 rounded-sm object-cover"
                     />
