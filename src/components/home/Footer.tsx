@@ -18,9 +18,9 @@ export function Footer({ onNavigate }: FooterProps) {
           <div className="text-center">
             <div className="flex justify-center mb-3">
               <img
-                src="/logoIcon.ico"
+                src="/logooutline.png"
                 alt="FarmInk Forum Logo"
-                className="w-20 h-20 object-cover"
+                className="h-15 w-auto object-contain drop-shadow-sm"
               />
             </div>
             <p className="text-gray-300 text-sm leading-relaxed">

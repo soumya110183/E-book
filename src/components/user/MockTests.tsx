@@ -6,7 +6,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '../ui/tabs';
 import { Progress } from '../ui/progress';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../ui/dialog';
 import { Clock, Trophy, Target, TrendingUp, Award, ChevronRight } from 'lucide-react';
-import Test from '../user/Testpage'
+import Test from '../user/Testpage';
 
 export function MockTests() {
 
@@ -47,14 +47,11 @@ export function MockTests() {
   const handleContinueClick = (test: any) => setContinueTest(test);
   const handleCloseContinueModal = () => setContinueTest(null);
 
-  // Example navigation function
   const handleGoToOngoingTest = () => {
     console.log("Redirecting to ongoing test:", continueTest);
-    // Replace this with your actual navigation (React Router / Next.js / etc.)
     window.location.href = `/test/${continueTest.id}`;
     setContinueTest(null);
   };
-
 
   return (
     <div className="space-y-6">
@@ -73,7 +70,7 @@ export function MockTests() {
                   <p className="text-sm text-gray-500 mb-1">{stat.label}</p>
                   <h3 className="text-[#1d4d6a]">{stat.value}</h3>
                 </div>
-                <div className={`w-12 h-12  bg-opacity-10 rounded-lg flex items-center justify-center`}>
+                <div className={`w-12 h-12 bg-opacity-10 rounded-lg flex items-center justify-center`}>
                   <stat.icon className={`w-6 h-6 ${stat.color.replace('bg-', 'text-')}`} />
                 </div>
               </div>
@@ -94,7 +91,7 @@ export function MockTests() {
         {/* Available Tests */}
         <TabsContent value="available" className="mt-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {availableTests.map((test) => (
+            {availableTests.map((test, index) => (
               <Card key={test.id} className="border-none shadow-md hover:shadow-lg transition-all">
                 <CardHeader>
                   <div className="flex items-start justify-between mb-2">
@@ -102,8 +99,8 @@ export function MockTests() {
                     <Badge
                       className={
                         test.difficulty === 'Easy' ? 'bg-green-100 text-green-700' :
-                          test.difficulty === 'Medium' ? 'bg-yellow-100 text-yellow-700' :
-                            'bg-red-100 text-red-700'
+                        test.difficulty === 'Medium' ? 'bg-yellow-100 text-yellow-700' :
+                        'bg-red-100 text-red-700'
                       }
                     >
                       {test.difficulty}
@@ -111,7 +108,9 @@ export function MockTests() {
                   </div>
                   <CardDescription>{test.subject}</CardDescription>
                 </CardHeader>
+
                 <CardContent className="space-y-4">
+
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div className="flex items-center gap-2 text-gray-600">
                       <Target className="w-4 h-4" />
@@ -122,15 +121,35 @@ export function MockTests() {
                       <span>{test.duration}</span>
                     </div>
                   </div>
+
                   <div className="text-xs text-gray-500">
                     {test.participants.toLocaleString()} students participated
                   </div>
-                  <Button
-                    className="w-full bg-[#bf2026] hover:bg-[#a01c22] text-white"
-                    onClick={() => handleStartClick(test)}
-                  >
-                    Start Test
-                  </Button>
+
+                  {/* FIRST TWO → Upcoming */}
+                  {index < 2 && (
+                    <div className="w-full bg-gray-100 border border-gray-200 rounded-lg p-3 cursor-default">
+                      <div className="text-left leading-tight">
+                        <p className="font-semibold text-[#1d4d6a]">Upcoming Test</p>
+                        <p className="text-xs text-gray-600">
+                          {index === 0
+                            ? "25 Nov 2025 — 10:00 AM"
+                            : "28 Nov 2025 — 03:00 PM"}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* NEXT TWO → Start Test */}
+                  {index >= 2 && index < 4 && (
+                    <Button
+                      onClick={() => handleStartClick(test)}
+                      className="w-full bg-[#bf2026] hover:bg-[#a01c22] text-white"
+                    >
+                      Start Test
+                    </Button>
+                  )}
+
                 </CardContent>
               </Card>
             ))}
@@ -152,17 +171,21 @@ export function MockTests() {
                       {test.difficulty}
                     </Badge>
                   </div>
+
                   <div className="space-y-3">
                     <div className="flex justify-between text-sm text-gray-600">
                       <span>Progress: {test.completed} of {test.questions} questions</span>
                       <span>{Math.round((test.completed / test.questions) * 100)}%</span>
                     </div>
+
                     <Progress value={(test.completed / test.questions) * 100} className="h-2" />
+
                     <div className="flex justify-between items-center pt-2">
                       <div className="text-sm text-gray-500 flex items-center gap-2">
                         <Clock className="w-4 h-4" />
                         <span>Time remaining: {test.duration}</span>
                       </div>
+
                       <Button
                         className="bg-[#bf2026] hover:bg-[#a01c22] text-white"
                         onClick={() => handleContinueClick(test)}
@@ -170,7 +193,6 @@ export function MockTests() {
                         Continue Test
                         <ChevronRight className="w-4 h-4 ml-2" />
                       </Button>
-
                     </div>
                   </div>
                 </CardContent>
@@ -178,6 +200,7 @@ export function MockTests() {
             ))}
           </div>
         </TabsContent>
+
         {/* Continue Test Modal */}
         <Dialog open={!!continueTest} onOpenChange={handleCloseContinueModal}>
           <DialogContent className="max-w-md">
@@ -191,11 +214,13 @@ export function MockTests() {
                     You have an ongoing test. Would you like to resume it now?
                   </DialogDescription>
                 </DialogHeader>
+
                 <div className="space-y-3 text-sm text-gray-700 mt-2">
                   <p><span className="font-medium">📚 Subject:</span> {continueTest.subject}</p>
                   <p><span className="font-medium">📝 Progress:</span> {continueTest.completed}/{continueTest.questions} questions completed</p>
                   <p><span className="font-medium">🕒 Duration:</span> {continueTest.duration}</p>
                 </div>
+
                 <div className="mt-6 flex justify-end gap-3">
                   <Button
                     onClick={handleCloseContinueModal}
@@ -203,6 +228,7 @@ export function MockTests() {
                   >
                     Cancel
                   </Button>
+
                   <Button
                     onClick={handleGoToOngoingTest}
                     className="bg-[#bf2026] hover:bg-[#a01c22] text-white"
@@ -214,7 +240,6 @@ export function MockTests() {
             )}
           </DialogContent>
         </Dialog>
-
 
         {/* Completed Tests */}
         <TabsContent value="completed" className="mt-6">
@@ -229,15 +254,22 @@ export function MockTests() {
                           <h3 className="text-[#1d4d6a] mb-1">{test.title}</h3>
                           <p className="text-sm text-gray-500">{test.subject} • {new Date(test.date).toLocaleDateString()}</p>
                         </div>
-                        <Badge className={test.score >= 90 ? 'bg-green-100 text-green-700' : test.score >= 75 ? 'bg-blue-100 text-blue-700' : 'bg-orange-100 text-orange-700'}>
+
+                        <Badge className={
+                          test.score >= 90 ? 'bg-green-100 text-green-700' :
+                          test.score >= 75 ? 'bg-blue-100 text-blue-700' :
+                          'bg-orange-100 text-orange-700'
+                        }>
                           {test.score >= 90 ? 'Excellent' : test.score >= 75 ? 'Good' : 'Pass'}
                         </Badge>
                       </div>
+
                       <div className="grid grid-cols-3 gap-4">
                         <div className="bg-gray-50 rounded-lg p-3">
                           <p className="text-xs text-gray-500 mb-1">Score</p>
                           <p className="text-[#1d4d6a]">{test.score}/{test.maxScore}</p>
                         </div>
+
                         <div className="bg-gray-50 rounded-lg p-3">
                           <p className="text-xs text-gray-500 mb-1">Rank</p>
                           <p className="text-[#1d4d6a] flex items-center gap-1">
@@ -245,6 +277,7 @@ export function MockTests() {
                             #{test.rank}
                           </p>
                         </div>
+
                         <div className="bg-gray-50 rounded-lg p-3">
                           <p className="text-xs text-gray-500 mb-1">Percentile</p>
                           <p className="text-[#1d4d6a]">{Math.round((1 - test.rank / test.participants) * 100)}th</p>
@@ -257,6 +290,7 @@ export function MockTests() {
             ))}
           </div>
         </TabsContent>
+
         {/* Test Modal */}
         <Dialog open={!!selectedTest} onOpenChange={handleCloseModal}>
           <DialogContent className="max-w-md">
@@ -266,6 +300,7 @@ export function MockTests() {
                   <DialogTitle className="text-[#1d4d6a]">{selectedTest.title}</DialogTitle>
                   <DialogDescription>Review details before starting the test.</DialogDescription>
                 </DialogHeader>
+
                 <div className="space-y-3 text-sm text-gray-700 mt-2">
                   <p><span className="font-medium">📚 Subject:</span> {selectedTest.subject}</p>
                   <p><span className="font-medium">🕒 Duration:</span> {selectedTest.duration}</p>
@@ -273,14 +308,14 @@ export function MockTests() {
                   <p><span className="font-medium">⚡ Difficulty:</span> {selectedTest.difficulty}</p>
                   <p><span className="font-medium">👥 Participants:</span> {selectedTest.participants.toLocaleString()}</p>
                 </div>
+
                 <div className="mt-6 flex justify-end gap-3">
                   <Button onClick={handleCloseModal} className="bg-gray-200 text-gray-700 hover:bg-gray-300">
                     Cancel
                   </Button>
+
                   <Button
-                    onClick={() => { window.open('/test', '_blank', 'noopener,noreferrer')
-                      setSelectedTest(null);      
-                     }}
+                    onClick={() => { window.open('/test', '_blank', 'noopener,noreferrer'); setSelectedTest(null); }}
                     className="bg-[#bf2026] hover:bg-[#a01c22] text-white"
                   >
                     Start Test
@@ -290,6 +325,7 @@ export function MockTests() {
             )}
           </DialogContent>
         </Dialog>
+
         {/* Leaderboard */}
         <TabsContent value="leaderboard" className="mt-6">
           <Card className="border-none shadow-md">
@@ -310,11 +346,14 @@ export function MockTests() {
                 ].map((user) => (
                   <div
                     key={user.rank}
-                    className={`flex items-center justify-between p-4 rounded-lg ${user.highlight ? 'bg-[#bf2026] bg-opacity-10 border-2 border-[#bf2026]' : 'bg-gray-50'
+                    className={`flex items-center justify-between p-4 rounded-lg ${user.highlight
+                      ? 'bg-[#bf2026] bg-opacity-10 border-2 border-[#bf2026]'
+                      : 'bg-gray-50'
                       }`}
                   >
                     <div className="flex items-center gap-4">
-                      <div className={`w-10 h-10 rounded-full ${user.highlight ? 'bg-[#bf2026]' : 'bg-[#1d4d6a]'} text-white flex items-center justify-center`}>
+                      <div className={`w-10 h-10 rounded-full ${user.highlight ? 'bg-[#bf2026]' : 'bg-[#1d4d6a]'
+                        } text-white flex items-center justify-center`}>
                         {user.badge || user.rank}
                       </div>
                       <div>
@@ -324,6 +363,7 @@ export function MockTests() {
                         <p className="text-xs text-gray-500">{user.tests} tests taken</p>
                       </div>
                     </div>
+
                     <div className="text-right">
                       <p className={`${user.highlight ? 'text-[#bf2026]' : 'text-[#1d4d6a]'}`}>
                         {user.score}%
@@ -336,6 +376,7 @@ export function MockTests() {
             </CardContent>
           </Card>
         </TabsContent>
+
       </Tabs>
     </div>
   );

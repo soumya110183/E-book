@@ -93,19 +93,32 @@ export function AdminDashboard({ onNavigate, onLogout }: AdminDashboardProps) {
       <aside
         className={`${sidebarCollapsed ? 'w-20' : 'w-64'} bg-[#1d4d6a] text-white fixed h-screen flex flex-col transition-all duration-300`}
       >
-        <div className="p-6 border-b border-[#2a5f7f] flex items-center justify-center">
+        <div className="p-6 border-b border-[#2a5f7f] flex items-center justify-center flex-col gap-2">
+
+          {/* --- Logo visible ALWAYS --- */}
+          <div
+            className="w-14 h-14 rounded-2xl bg-gradient-to-br from-white/20 to-white/5 
+               backdrop-blur-md flex items-center justify-center shadow-lg"
+          >
+            <img
+              src="/logooutline.png"
+              alt="Logo"
+              className="w-10 h-10 object-contain drop-shadow-xl"
+            />
+          </div>
+
+          {/* --- Only when expanded --- */}
           {!sidebarCollapsed && (
-            <div className="flex flex-col items-center leading-tight text-center">
-              <span className="text-white font-medium">Admin Panel</span>
+            <div className="flex flex-col items-center leading-tight text-center mt-2">
+              <span className="text-white font-semibold text-lg tracking-wide">
+                Admin Panel
+              </span>
               <p className="text-xs text-gray-300">FarmInk Forum</p>
             </div>
           )}
-          {sidebarCollapsed && (
-            <span className="text-white font-medium text-sm">
-              Admin
-            </span>
-          )}
+
         </div>
+
 
 
         <div className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-transparent">
@@ -208,17 +221,19 @@ export function AdminDashboard({ onNavigate, onLogout }: AdminDashboardProps) {
               {/* Avatar Dropdown */}
               <div className="relative" ref={avatarRef}>
                 <button
-                  className="relative p-1 hover:bg-gray-100 rounded-full"
+                  className="relative p-1 rounded-full transition-all duration-300 
+             hover:bg-gray-100/60 hover:shadow-md"
                   onClick={() => setAvatarOpen(!avataropen)}
                 >
-                  <Avatar className="w-8 h-8 ring-2 ring-gray-300 rounded-sm">
-                    <img
-                      src="/logooutline.png"
-                      alt="Admin Avatar"
-                      className="w-9 h-9 rounded-sm object-cover"
-                    />
+                  <Avatar
+                    className="w-9 h-9 bg-gradient-to-br from-[#1d4d6a] to-[#16384e] 
+               text-white flex items-center justify-center 
+               font-semibold tracking-wide rounded-xl shadow-sm"
+                  >
+                    AD
                   </Avatar>
                 </button>
+
                 {avataropen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-xl border border-gray-100 z-50">
                     <div className="p-4 border-b border-gray-200">
